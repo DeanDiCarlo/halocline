@@ -1,0 +1,18 @@
+data:
+  train: data/train.h5
+  val: data/val.h5
+training:
+  epochs: 25
+  batch_size: 32
+  learning_rate: 0.001
+  device: auto
+model:
+  name: ufno_small
+  in_channels: 8
+  out_channels: 2
+  width: 32
+  modes_height: 12
+  modes_width: 12
+  depth: 4
+output:
+  checkpoint: checkpoints/ufno_small.pt

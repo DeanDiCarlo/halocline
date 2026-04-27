@@ -1,0 +1,4 @@
+model:
+  name: gnn
+  status: stub
+  interface: SurrogateModel
