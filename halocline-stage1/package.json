@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node app/checkpointServer.ts",
     "demo": "node app/checkpointServer.ts",
-    "test": "node --test \"tests/**/*.test.ts\""
+    "test": "node --test tests/**/*.test.ts"
   },
   "engines": {
     "node": ">=24"
