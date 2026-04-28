@@ -1,0 +1,20 @@
+data:
+  train: data_4090/train.h5
+  val: data_4090/val.h5
+training:
+  epochs: 30
+  batch_size: 256
+  learning_rate: 0.001
+  device: auto
+  preload: true
+  num_workers: 0
+model:
+  name: ufno_small
+  in_channels: 8
+  out_channels: 2
+  width: 32
+  modes_height: 12
+  modes_width: 12
+  depth: 4
+output:
+  checkpoint: checkpoints/ufno_4090_fast.pt

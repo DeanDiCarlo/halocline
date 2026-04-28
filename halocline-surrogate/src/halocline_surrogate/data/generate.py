@@ -7,6 +7,7 @@ from time import perf_counter
 
 import h5py
 import numpy as np
+import yaml
 from halocline_physics.datasets import load_biscayne_stage1_dataset
 from halocline_physics.scenario_runner import apply_scenario_to_grid, run_scenario
 
@@ -114,17 +115,22 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/sampling.yaml")
     parser.add_argument("--output", default="data")
-    parser.add_argument("--train", type=int, default=4000)
-    parser.add_argument("--val", type=int, default=500)
-    parser.add_argument("--test", type=int, default=500)
+    parser.add_argument("--train", type=int, default=None)
+    parser.add_argument("--val", type=int, default=None)
+    parser.add_argument("--test", type=int, default=None)
     args = parser.parse_args()
 
     dataset = load_biscayne_stage1_dataset()
     config = load_sampling_config(args.config)
+    raw_config = yaml.safe_load(Path(args.config).read_text(encoding="utf8")) or {}
+    split_sizes = raw_config.get("split_sizes", {})
+    train_count = args.train if args.train is not None else int(split_sizes.get("train", 4000))
+    val_count = args.val if args.val is not None else int(split_sizes.get("val", 500))
+    test_count = args.test if args.test is not None else int(split_sizes.get("test", 500))
     output = Path(args.output)
     write_grid_file(output, dataset)
 
-    splits = [("train", args.train, 0), ("val", args.val, 10_000), ("test", args.test, 20_000)]
+    splits = [("train", train_count, 0), ("val", val_count, 10_000), ("test", test_count, 20_000)]
     for name, count, seed_offset in splits:
         samples = sample_scenarios(
             count=count,
