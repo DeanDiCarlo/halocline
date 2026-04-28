@@ -21,6 +21,8 @@ class TrainConfig:
     device: str
     checkpoint: Path
     model: dict
+    num_workers: int = 0
+    preload: bool = True
 
 
 def resolve_device(device: str) -> torch.device:
@@ -76,10 +78,22 @@ def evaluate(model: torch.nn.Module, loader: DataLoader, device: torch.device) -
 
 def train(config: TrainConfig) -> list[dict[str, float]]:
     device = resolve_device(config.device)
-    train_dataset = HaloclineDataset(config.train_path)
-    val_dataset = HaloclineDataset(config.val_path)
-    train_loader = DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=config.batch_size)
+    if device.type == "cuda":
+        torch.set_float32_matmul_precision("high")
+    train_dataset = HaloclineDataset(config.train_path, preload=config.preload)
+    val_dataset = HaloclineDataset(config.val_path, preload=config.preload)
+    loader_kwargs = {
+        "num_workers": config.num_workers,
+        "pin_memory": device.type == "cuda",
+        "persistent_workers": config.num_workers > 0,
+    }
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=config.batch_size,
+        shuffle=True,
+        **loader_kwargs,
+    )
+    val_loader = DataLoader(val_dataset, batch_size=config.batch_size, **loader_kwargs)
     model = build_model(config.model).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate)
     field_scales = _field_scales(train_loader, device)

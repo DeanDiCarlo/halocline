@@ -19,6 +19,8 @@ def load_train_config(path: str | Path) -> TrainConfig:
         device=str(raw["training"].get("device", "auto")),
         checkpoint=Path(raw["output"]["checkpoint"]),
         model=dict(raw["model"]),
+        num_workers=int(raw["training"].get("num_workers", 0)),
+        preload=bool(raw["training"].get("preload", True)),
     )
 
 
