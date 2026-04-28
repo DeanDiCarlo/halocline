@@ -5,12 +5,14 @@ import torch
 
 def masked_mse(pred: torch.Tensor, target: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
     field_mask = mask.expand_as(pred)
-    return ((pred - target).pow(2) * field_mask).sum() / field_mask.sum().clamp_min(1)
+    diff = torch.nan_to_num(pred - target, nan=0.0, posinf=0.0, neginf=0.0)
+    return (diff.pow(2) * field_mask).sum() / field_mask.sum().clamp_min(1)
 
 
 def masked_mae(pred: torch.Tensor, target: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
     field_mask = mask.expand_as(pred)
-    return ((pred - target).abs() * field_mask).sum() / field_mask.sum().clamp_min(1)
+    diff = torch.nan_to_num(pred - target, nan=0.0, posinf=0.0, neginf=0.0)
+    return (diff.abs() * field_mask).sum() / field_mask.sum().clamp_min(1)
 
 
 def masked_rmse(pred: torch.Tensor, target: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:

@@ -46,7 +46,7 @@ def build_model(config: dict) -> torch.nn.Module:
 def _field_scales(loader: DataLoader, device: torch.device) -> torch.Tensor:
     maxima = torch.zeros(2, device=device)
     for batch in loader:
-        targets = batch["targets"].to(device)
+        targets = torch.nan_to_num(batch["targets"].to(device), nan=0.0, posinf=0.0, neginf=0.0)
         mask = batch["mask"].to(device)
         masked = targets.abs() * mask
         maxima = torch.maximum(maxima, masked.amax(dim=(0, 2, 3)))
