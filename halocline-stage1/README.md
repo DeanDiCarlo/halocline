@@ -41,11 +41,30 @@ Then open:
 http://127.0.0.1:3000
 ```
 
-The root route serves the map-facing product surface. The internal checkpoint/debug page is available at:
+The root route serves the branded Halocline website draft. The map-facing product surface remains available at:
+
+```text
+http://127.0.0.1:3000/map
+```
+
+The internal checkpoint/debug page is available at:
 
 ```text
 http://127.0.0.1:3000/checkpoint
 ```
+
+## Branded Website Draft
+
+The root route (`/`) is a brand-facing website draft built from `BRANDING.md` and the supplied logo assets. It uses the Halocline palette (`ink`, `bone`, `steel`, `chloride`), Inter and IBM Plex Mono, flat cross-section motifs, and trust copy that preserves the Stage 1 non-regulatory disclaimer.
+
+The web-sized logo derivatives live under `app/assets/` and are served by the local Node server:
+
+```text
+GET /assets/halocline-mark.png
+GET /assets/halocline-wordmark.png
+```
+
+The website links through to `/map` for the live scenario surface and `/checkpoint` for backend-style model inspection.
 
 The checkpoint proves that the current backend-style pipeline is connected end to end:
 
@@ -97,13 +116,11 @@ The checkpoint page remains an internal inspection surface; the model runner is 
 
 ## Sprint 5A Map Shell
 
-The first map-facing product surface is available at:
+The first map-facing product surface is now available at:
 
 ```text
-http://127.0.0.1:3000
+http://127.0.0.1:3000/map
 ```
-
-The same map is also available at `/map`.
 
 Sprint 5A intentionally stays dependency-free. It renders a static mock map shell from the existing dataset rather than using MapLibre or real Biscayne layers.
 
@@ -190,7 +207,7 @@ The primary map now supports scenario-vs-baseline comparison:
 
 The primary map now uses MapLibre GL JS with an OpenFreeMap South Florida basemap.
 
-- `/` and `/map` render a real pannable basemap instead of only the local SVG grid.
+- `/map` renders a real pannable basemap instead of only the local SVG grid.
 - Current Stage 1 head, interface, canal, coastline, and well-risk overlays are converted to browser-side GeoJSON and drawn over the basemap.
 - The original SVG model view remains as a fallback if external map assets or tiles are unavailable.
 - The overlay is now the real-domain simplified Stage 1 grid, not calibrated Biscayne model data.

@@ -1,4 +1,5 @@
 import { createServer } from "node:http";
+import { readFile } from "node:fs/promises";
 
 import {
   runCheckpointScenario,
@@ -12,6 +13,7 @@ import {
   buildMapScenarioViewModel,
   type MapScenarioInput,
 } from "../src/lib/map/mapScenarioViewModel.ts";
+import { marketingHtml } from "./marketingPage.ts";
 
 const host = process.env.HOST ?? "127.0.0.1";
 const port = Number(process.env.PORT ?? 3000);
@@ -47,6 +49,23 @@ function sendHtml(response: Parameters<Parameters<typeof createServer>[0]>[1], h
   });
   response.end(html);
 }
+
+async function sendPng(
+  response: Parameters<Parameters<typeof createServer>[0]>[1],
+  fileUrl: URL,
+): Promise<void> {
+  const image = await readFile(fileUrl);
+  response.writeHead(200, {
+    "content-type": "image/png",
+    "cache-control": "public, max-age=3600",
+  });
+  response.end(image);
+}
+
+const staticPngAssets = new Map<string, URL>([
+  ["/assets/halocline-mark.png", new URL("./assets/halocline-mark.png", import.meta.url)],
+  ["/assets/halocline-wordmark.png", new URL("./assets/halocline-wordmark.png", import.meta.url)],
+]);
 
 const checkpointHtml = String.raw`<!doctype html>
 <html lang="en">
@@ -4862,8 +4881,14 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", `http://${request.headers.host ?? "localhost"}`);
 
   try {
+    const staticPngAsset = staticPngAssets.get(url.pathname);
+    if (request.method === "GET" && staticPngAsset) {
+      await sendPng(response, staticPngAsset);
+      return;
+    }
+
     if (request.method === "GET" && url.pathname === "/") {
-      sendHtml(response, mapShellHtml);
+      sendHtml(response, marketingHtml);
       return;
     }
 
