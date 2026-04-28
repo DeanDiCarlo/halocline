@@ -92,3 +92,4 @@ events.out.tfevents.*
 logs/
 tmp/
 .cache/
+.codex

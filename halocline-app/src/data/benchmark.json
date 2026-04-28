@@ -1,0 +1,29 @@
+{
+  "run": {
+    "hardware": "RTX 4090 RunPod",
+    "train": 4000,
+    "validation": 500,
+    "test": 500,
+    "epochs": 30,
+    "oracle": "Synthetic Python Stage 1 physics oracle"
+  },
+  "accuracy": {
+    "headMae": 1.7794866561889648,
+    "headRmse": 2.55856990814209,
+    "headRelativeL2": 0.5294341444969177,
+    "interfaceMae": 8.0179443359375,
+    "interfaceRmse": 8.986921310424805,
+    "interfaceRelativeL2": 0.17124775052070618
+  },
+  "runtime": {
+    "oracleMs": 11.314581871032715,
+    "surrogateBatch1Ms": 2.4777499800547957,
+    "surrogateBatch64Ms": 0.23366271425038576,
+    "surrogateBatch512Ms": 0.24932185839861631,
+    "surrogateBatch2048Ms": 0.06481252796947956,
+    "speedupBatch1": 4.566474407067695,
+    "speedupBatch64": 48.42271009018734,
+    "speedupBatch512": 45.38142762012843,
+    "speedupBatch2048": 174.57399403338795
+  }
+}
