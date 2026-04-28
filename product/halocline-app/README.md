@@ -17,7 +17,7 @@ npm run dev
 
 Create a Vercel project from the GitHub repo and set:
 
-- Root Directory: `halocline-app`
+- Root Directory: `product/halocline-app`
 - Build Command: `npm run build`
 - Output Directory: `dist`
 

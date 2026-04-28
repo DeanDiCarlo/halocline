@@ -16,8 +16,8 @@ We now have an end-to-end answer: yes, with important caveats.
 
 We first froze the existing TypeScript Stage 1 model as a parity reference.
 
-- Generated `reference_snapshots/scenarios.jsonl`
-- Generated `reference_snapshots/grid_geometry.json`
+- Generated `research/reference_snapshots/scenarios.jsonl`
+- Generated `research/reference_snapshots/grid_geometry.json`
 - Captured 500 deterministic Latin Hypercube scenarios
 - Documented that the old near-zero UI number was mass-balance residual, not MAE/RMSE
 
@@ -132,20 +132,20 @@ The best pitch line from this run is:
 
 Benchmark results:
 
-- `halocline-surrogate/results/report_4090.csv`
-- `halocline-surrogate/results/train_4090.log`
-- `halocline-surrogate/results/rtx4090_4000_500_500.md`
+- `research/halocline-surrogate/results/report_4090.csv`
+- `research/halocline-surrogate/results/train_4090.log`
+- `research/halocline-surrogate/results/rtx4090_4000_500_500.md`
 
 Model/data artifacts:
 
-- `halocline-surrogate/checkpoints/ufno_h100_fast.pt`
-- `halocline-surrogate/data_h100/test.h5`
+- `research/halocline-surrogate/checkpoints/ufno_h100_fast.pt`
+- `research/halocline-surrogate/data_h100/test.h5`
 
 Visualizations:
 
-- `visualizations/rtx4090_surrogate_speedup_dashboard.png`
-- `visualizations/rtx4090_oracle_vs_surrogate_heatmaps.png`
-- `visualizations/physics_oracle_vs_surrogate_cpu_300.png`
+- `research/visualizations/rtx4090_surrogate_speedup_dashboard.png`
+- `research/visualizations/rtx4090_oracle_vs_surrogate_heatmaps.png`
+- `research/visualizations/physics_oracle_vs_surrogate_cpu_300.png`
 
 ## What This Result Means
 

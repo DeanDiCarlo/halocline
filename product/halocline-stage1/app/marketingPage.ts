@@ -6,7 +6,7 @@ export const marketingHtml = String.raw`<!doctype html>
     <title>Halocline | Coastal aquifer simulation</title>
     <meta
       name="description"
-      content="Halocline is an interactive simulation platform for coastal aquifer management."
+      content="Halocline estimates hydraulic head, freshwater-saltwater interface depth, and well-level intrusion risk under coastal-aquifer boundary-condition scenarios."
     />
     <link rel="icon" href="/assets/halocline-mark.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -234,14 +234,18 @@ export const marketingHtml = String.raw`<!doctype html>
       }
 
       .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.72fr);
+        gap: 44px;
+        align-items: center;
         width: min(100%, var(--max-width));
         margin: 0 auto;
         padding-bottom: 38px;
       }
 
       .hero-copy-block {
-        width: min(100%, 720px);
-        margin-bottom: 78px;
+        width: min(100%, 650px);
+        margin-bottom: 42px;
       }
 
       .label {
@@ -267,17 +271,25 @@ export const marketingHtml = String.raw`<!doctype html>
 
       h1 {
         margin: 0 0 22px;
-        font-size: 92px;
+        max-width: 560px;
+        font-size: 76px;
         font-weight: 500;
-        line-height: 0.92;
+        line-height: 0.96;
       }
 
       .hero-copy {
-        width: min(100%, 610px);
-        margin: 0 0 30px;
+        width: min(100%, 640px);
+        margin: 0 0 26px;
         color: var(--hal-ink-700);
-        font-size: 21px;
-        line-height: 1.5;
+        font-size: 18px;
+        line-height: 1.62;
+      }
+
+      .hero-visual {
+        align-self: stretch;
+        min-height: 520px;
+        display: flex;
+        align-items: center;
       }
 
       .hero-actions,
@@ -329,6 +341,7 @@ export const marketingHtml = String.raw`<!doctype html>
       }
 
       .hero-readout {
+        grid-column: 1 / -1;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         color: var(--hal-bone);
@@ -359,6 +372,98 @@ export const marketingHtml = String.raw`<!doctype html>
         font-size: 18px;
         font-weight: 500;
         line-height: 1.25;
+      }
+
+      .scientific-image-frame {
+        display: grid;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .scientific-image {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        min-height: 360px;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        color: var(--hal-ink);
+        border: 1px solid var(--line-strong);
+        background:
+          linear-gradient(90deg, rgba(68, 94, 114, 0.12) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(68, 94, 114, 0.12) 1px, transparent 1px),
+          var(--hal-bone-50);
+        background-size: 42px 42px;
+      }
+
+      .section-ink .scientific-image {
+        color: var(--hal-bone);
+        border-color: var(--line-on-ink);
+        background:
+          linear-gradient(90deg, rgba(232, 225, 209, 0.12) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(232, 225, 209, 0.12) 1px, transparent 1px),
+          rgba(232, 225, 209, 0.05);
+        background-size: 42px 42px;
+      }
+
+      .scientific-image.is-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border: 1px dashed rgba(196, 120, 56, 0.72);
+      }
+
+      .scientific-image img {
+        width: 100%;
+        height: 100%;
+        max-height: min(72vh, 720px);
+        object-fit: contain;
+      }
+
+      .hero-visual .scientific-image img {
+        max-height: min(68vh, 620px);
+      }
+
+      .scenario-map-panel .scientific-image,
+      .chart-panel .scientific-image {
+        min-height: clamp(320px, 48vw, 620px);
+      }
+
+      .image-caption,
+      .feature-labels li {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .section-ink .image-caption,
+      .section-ink .feature-labels li {
+        color: var(--muted-on-ink);
+      }
+
+      .feature-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .feature-labels li {
+        padding: 6px 8px;
+        border: 1px solid var(--line);
+        background: rgba(243, 238, 224, 0.58);
+      }
+
+      .section-ink .feature-labels li {
+        border-color: var(--line-on-ink);
+        background: rgba(232, 225, 209, 0.06);
+      }
+
+      .image-caption {
+        margin: 0;
       }
 
       .trust-strip {
@@ -501,7 +606,7 @@ export const marketingHtml = String.raw`<!doctype html>
 
       .workflow-steps {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
       }
 
       .workflow-step {
@@ -870,6 +975,244 @@ export const marketingHtml = String.raw`<!doctype html>
         font-weight: 500;
       }
 
+      .research-thesis {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.78fr);
+        gap: 34px;
+        align-items: stretch;
+      }
+
+      .research-panel {
+        padding: 28px;
+        border: 1px solid var(--line);
+        background: rgba(243, 238, 224, 0.54);
+      }
+
+      .research-panel h3,
+      .study-card h3,
+      .paper-card h3,
+      .roadmap-card h3 {
+        margin: 0 0 12px;
+        font-size: 21px;
+        font-weight: 600;
+        line-height: 1.18;
+      }
+
+      .research-panel p,
+      .study-card p,
+      .paper-card p,
+      .roadmap-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.62;
+      }
+
+      .research-kpis {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+      }
+
+      .research-kpi {
+        min-height: 142px;
+        padding: 20px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .research-kpi span {
+        display: block;
+        color: var(--hal-steel);
+        font-size: 12px;
+      }
+
+      .research-kpi strong {
+        display: block;
+        margin-top: 10px;
+        font-family: var(--hal-font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.15;
+      }
+
+      .research-kpi em {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+        font-style: normal;
+        line-height: 1.45;
+      }
+
+      .paper-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .paper-card {
+        min-height: 224px;
+        padding: 22px;
+        color: var(--hal-bone);
+        border: 1px solid var(--line-on-ink);
+        background: rgba(232, 225, 209, 0.05);
+      }
+
+      .paper-card p,
+      .paper-card a {
+        color: var(--muted-on-ink);
+      }
+
+      .paper-card a {
+        display: inline-flex;
+        margin-top: 16px;
+        font-size: 13px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(196, 120, 56, 0.72);
+      }
+
+      .reference-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .reference-list span {
+        padding: 10px 12px;
+        color: var(--muted-on-ink);
+        font-size: 12px;
+        line-height: 1.35;
+        border: 1px solid rgba(232, 225, 209, 0.14);
+      }
+
+      .study-grid {
+        display: grid;
+        grid-template-columns: minmax(300px, 0.84fr) minmax(0, 1fr);
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .study-card {
+        padding: 24px;
+        border: 1px solid var(--line);
+        background: rgba(243, 238, 224, 0.56);
+      }
+
+      .study-card + .study-card {
+        margin-top: 16px;
+      }
+
+      .data-schema {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .schema-row {
+        display: grid;
+        grid-template-columns: 128px 1fr;
+        gap: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        color: var(--hal-steel);
+        font-size: 12px;
+      }
+
+      .schema-row strong {
+        color: var(--hal-ink);
+        font-family: var(--hal-font-mono);
+        font-weight: 500;
+      }
+
+      .chart-panel {
+        display: grid;
+        gap: 18px;
+        padding: 24px;
+        border: 1px solid var(--line-strong);
+        background: var(--hal-bone);
+      }
+
+      .chart-title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .chart-title strong {
+        font-size: 18px;
+      }
+
+      .chart-title span {
+        color: var(--hal-steel);
+        font-family: var(--hal-font-mono);
+        font-size: 12px;
+      }
+
+      .ufno-placeholder {
+        aspect-ratio: 16 / 9;
+        min-height: 420px;
+      }
+
+      .bar-chart {
+        display: grid;
+        gap: 12px;
+      }
+
+      .bar-row {
+        display: grid;
+        grid-template-columns: 118px 1fr 82px;
+        gap: 12px;
+        align-items: center;
+        color: var(--hal-steel);
+        font-size: 12px;
+      }
+
+      .bar-track {
+        height: 12px;
+        background: rgba(68, 94, 114, 0.14);
+      }
+
+      .bar-fill {
+        display: block;
+        height: 100%;
+        background: var(--hal-ink);
+      }
+
+      .bar-fill.chloride {
+        background: var(--hal-chloride);
+      }
+
+      .bar-value {
+        color: var(--hal-ink);
+        font-family: var(--hal-font-mono);
+        text-align: right;
+      }
+
+      .roadmap-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .roadmap-card {
+        min-height: 246px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        background: rgba(243, 238, 224, 0.52);
+      }
+
+      .roadmap-index {
+        display: inline-flex;
+        margin-bottom: 34px;
+        color: var(--hal-chloride-600);
+        font-family: var(--hal-font-mono);
+        font-size: 13px;
+      }
+
       .cta-band {
         position: relative;
         overflow: hidden;
@@ -947,11 +1290,20 @@ export const marketingHtml = String.raw`<!doctype html>
 
       @media (max-width: 1040px) {
         .section-heading,
+        .hero-inner,
         .workflow-frame,
         .model-grid,
         .product-preview,
+        .research-thesis,
+        .study-grid,
         .cta-grid {
           grid-template-columns: 1fr;
+        }
+
+        .paper-grid,
+        .reference-list,
+        .roadmap-grid {
+          grid-template-columns: 1fr 1fr;
         }
 
         .product-console {
@@ -997,21 +1349,29 @@ export const marketingHtml = String.raw`<!doctype html>
         }
 
         .hero-copy-block {
-          margin-bottom: 48px;
+          margin-bottom: 34px;
         }
 
         h1 {
-          font-size: 66px;
+          font-size: 58px;
         }
 
         .hero-copy {
-          font-size: 19px;
+          font-size: 17px;
+        }
+
+        .hero-visual {
+          min-height: 360px;
         }
 
         .hero-readout,
         .trust-grid,
         .workflow-steps,
-        .evidence-grid {
+        .evidence-grid,
+        .research-kpis,
+        .paper-grid,
+        .reference-list,
+        .roadmap-grid {
           grid-template-columns: 1fr;
         }
 
@@ -1110,8 +1470,18 @@ export const marketingHtml = String.raw`<!doctype html>
           grid-template-columns: 78px 1fr auto;
         }
 
+        .schema-row,
+        .bar-row {
+          grid-template-columns: 1fr;
+        }
+
+        .bar-value {
+          text-align: left;
+        }
+
         .aquifer-diagram,
-        .aquifer-diagram svg {
+        .aquifer-diagram svg,
+        .scientific-image {
           min-height: 500px;
         }
 
@@ -1144,6 +1514,7 @@ export const marketingHtml = String.raw`<!doctype html>
             <a href="#platform">Platform</a>
             <a href="#model">Model</a>
             <a href="#evidence">Evidence</a>
+            <a href="#research">Research</a>
             <a href="/checkpoint">Checkpoint</a>
             <a class="nav-action" href="/map">Open map</a>
           </div>
@@ -1158,17 +1529,32 @@ export const marketingHtml = String.raw`<!doctype html>
         </div>
         <div class="hero-inner">
           <div class="hero-copy-block">
-            <p class="label">Coastal aquifer simulation</p>
+            <p class="label">Coastal aquifer boundary-response model</p>
             <h1 id="hero-title">Halocline</h1>
             <p class="hero-copy">
-              Interactive simulation for coastal aquifer management, built around the physical boundary
-              between fresh groundwater and saline intrusion.
+              A scenario-driven model for estimating hydraulic head, freshwater-saltwater interface
+              depth, and well-level intrusion risk under variable recharge, sea-level, canal-stage,
+              and pumping boundary conditions.
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href="/map">Open scenario map</a>
-              <a class="button button-secondary" href="#model">View model approach</a>
+              <a class="button button-secondary" href="#model">Review governing assumptions</a>
             </div>
           </div>
+
+          <figure class="hero-visual scientific-image-frame" aria-label="Conceptual coastal-aquifer cross-section">
+            <div class="scientific-image">
+              <img
+                src="/assets/boundary_model.png"
+                alt="Conceptual coastal-aquifer cross-section labeled with recharge, hydraulic head contours, interface depth, pumping wells, and sea boundary."
+                width="1448"
+                height="1086"
+              />
+            </div>
+            <figcaption class="image-caption">
+              Conceptual cross-section of boundary conditions and freshwater-saltwater interface response.
+            </figcaption>
+          </figure>
 
           <div class="hero-readout" aria-label="Stage 1 model summary">
             <div class="readout-cell">
@@ -1185,7 +1571,7 @@ export const marketingHtml = String.raw`<!doctype html>
             </div>
             <div class="readout-cell">
               <span class="readout-label">Primary output</span>
-              <span class="readout-value">Head, interface, well risk</span>
+              <span class="readout-value">Head field, interface depth, risk ratio</span>
             </div>
           </div>
         </div>
@@ -1194,16 +1580,16 @@ export const marketingHtml = String.raw`<!doctype html>
       <section class="trust-strip" aria-label="Trust signals">
         <div class="section-inner trust-grid">
           <div class="trust-item">
-            <strong>Physics-first</strong>
-            <span>Darcy head solve, Ghyben-Herzberg interface conversion, and well-level upconing risk readouts.</span>
+            <strong>Process-based</strong>
+            <span>Steady-state Darcy flow, Ghyben-Herzberg interface approximation, and well-level upconing risk estimates.</span>
           </div>
           <div class="trust-item">
             <strong>Reference context</strong>
-            <span>USGS intrusion lines and SFWMD canal alignments stay visibly separate from modeled output.</span>
+            <span>USGS isochlor lines and SFWMD canal alignments remain distinct from model-derived grids.</span>
           </div>
           <div class="trust-item">
-            <strong>Honest limits</strong>
-            <span>Stage 1 is a decision-support checkpoint, not a calibrated regulatory model of record.</span>
+            <strong>Model limits</strong>
+            <span>Stage 1 is a provisional decision-support model, not a calibrated regulatory model of record.</span>
           </div>
         </div>
       </section>
@@ -1213,19 +1599,20 @@ export const marketingHtml = String.raw`<!doctype html>
           <div class="section-inner">
             <div class="section-heading">
               <div>
-                <p class="label">Operational workflow</p>
-                <h2 id="platform-title">From scenario input to aquifer consequence</h2>
+                <p class="label">Numerical workflow</p>
+                <h2 id="platform-title">From boundary conditions to aquifer response</h2>
               </div>
               <p>
-                Halocline is designed around an inspectable modeling chain: operators adjust stress,
-                the physics pipeline runs, and every boundary movement keeps its assumptions attached.
+                Halocline exposes each modeling step: boundary conditions are parameterized,
+                the hydraulic head field is solved, interface position is estimated, and well-level
+                intrusion risk is reported with diagnostics.
               </p>
             </div>
 
             <div class="workflow-frame">
-              <aside class="workflow-index-panel" aria-label="Scenario stress summary">
-                <strong>Scenario stress profile</strong>
-                <p>Example planning run with reduced recharge, sea-level pressure, and a central wellfield pumping increase.</p>
+              <aside class="workflow-index-panel" aria-label="Boundary-condition summary">
+                <strong>Boundary-condition set</strong>
+                <p>Example scenario with reduced recharge, elevated coastal head, and increased central wellfield withdrawals.</p>
                 <div class="workflow-meter" aria-label="Scenario inputs">
                   <div class="meter-row">
                     <span>Recharge</span>
@@ -1240,7 +1627,7 @@ export const marketingHtml = String.raw`<!doctype html>
                   <div class="meter-row">
                     <span>Pumping</span>
                     <span class="meter-track"><span class="meter-fill" style="width: 78%"></span></span>
-                    <strong>stress</strong>
+                    <strong>+Q</strong>
                   </div>
                 </div>
               </aside>
@@ -1248,8 +1635,8 @@ export const marketingHtml = String.raw`<!doctype html>
               <div class="workflow-steps">
                 <article class="workflow-step">
                   <span class="workflow-index">01</span>
-                  <h3>Set boundary conditions</h3>
-                  <p>Adjust recharge, sea level, canal stage, and wellfield pumping without leaving the map context.</p>
+                  <h3>Define boundary conditions</h3>
+                  <p>Set recharge, coastal head, canal stage, and pumping terms for the scenario domain.</p>
                   <span class="step-mark" aria-hidden="true">
                     <svg viewBox="0 0 160 50">
                       <path d="M6 38 H154" stroke="#0b1e2f" stroke-width="1" opacity="0.24" />
@@ -1261,8 +1648,8 @@ export const marketingHtml = String.raw`<!doctype html>
                 </article>
                 <article class="workflow-step">
                   <span class="workflow-index">02</span>
-                  <h3>Run the model pipeline</h3>
-                  <p>Route the scenario through Darcy head, interface-depth conversion, and upconing risk.</p>
+                  <h3>Solve hydraulic head field</h3>
+                  <p>Solve the steady-state Darcy flow field over the active grid and retain mass-balance diagnostics.</p>
                   <span class="step-mark" aria-hidden="true">
                     <svg viewBox="0 0 160 50">
                       <path d="M8 34 C38 12 68 38 96 20 C116 8 134 18 152 10" fill="none" stroke="#0b1e2f" stroke-width="3" />
@@ -1272,8 +1659,8 @@ export const marketingHtml = String.raw`<!doctype html>
                 </article>
                 <article class="workflow-step">
                   <span class="workflow-index">03</span>
-                  <h3>Read the moved boundary</h3>
-                  <p>Compare head, interface depth, intrusion change, and well risk against the baseline state.</p>
+                  <h3>Compute interface depth</h3>
+                  <p>Use the Ghyben-Herzberg approximation to convert freshwater head into a sharp-interface depth estimate.</p>
                   <span class="step-mark" aria-hidden="true">
                     <svg viewBox="0 0 160 50">
                       <path d="M6 30 C46 22 86 28 154 12" fill="none" stroke="#445e72" stroke-width="2" stroke-dasharray="8 8" />
@@ -1283,14 +1670,25 @@ export const marketingHtml = String.raw`<!doctype html>
                 </article>
                 <article class="workflow-step">
                   <span class="workflow-index">04</span>
-                  <h3>Keep the evidence trail</h3>
-                  <p>Warnings, provenance, model assumptions, and calculation traces remain next to the answer.</p>
+                  <h3>Evaluate well intrusion risk</h3>
+                  <p>Estimate critical pumping and risk ratio for each placeholder wellfield under the solved head field.</p>
                   <span class="step-mark" aria-hidden="true">
                     <svg viewBox="0 0 160 50">
                       <path d="M16 13 H144 M16 25 H118 M16 37 H138" stroke="#0b1e2f" stroke-width="2" opacity="0.55" />
                       <circle cx="144" cy="13" r="5" fill="#c47838" />
                       <circle cx="118" cy="25" r="5" fill="#445e72" />
                       <circle cx="138" cy="37" r="5" fill="#0b1e2f" />
+                    </svg>
+                  </span>
+                </article>
+                <article class="workflow-step">
+                  <span class="workflow-index">05</span>
+                  <h3>Attach assumptions and diagnostics</h3>
+                  <p>Report convergence status, mass-balance residual, active guardrails, and non-regulatory model limitations.</p>
+                  <span class="step-mark" aria-hidden="true">
+                    <svg viewBox="0 0 160 50">
+                      <path d="M22 14 H138 M22 25 H126 M22 36 H146" stroke="#0b1e2f" stroke-width="2" opacity="0.55" />
+                      <path d="M14 14 L17 17 L22 9 M14 25 L17 28 L22 20 M14 36 L17 39 L22 31" fill="none" stroke="#c47838" stroke-width="2" />
                     </svg>
                   </span>
                 </article>
@@ -1304,61 +1702,31 @@ export const marketingHtml = String.raw`<!doctype html>
             <div class="section-heading">
               <div>
                 <p class="label">Boundary model</p>
-                <h2 id="model-title">The product is the halocline, not a generic water dashboard</h2>
+                <h2 id="model-title">A simplified coastal-aquifer model with visible boundary assumptions</h2>
               </div>
               <p>
-                The visual system follows the model: limestone aquifer, fixed-head boundaries,
-                pumping stress, saline wedge, and a freshwater-saltwater interface that moves when assumptions change.
+                The current model represents a two-dimensional active grid, fixed-head coastal
+                and canal boundaries, distributed recharge, pumping wells, and a provisional
+                aquifer-base clamp used for display.
               </p>
             </div>
 
             <div class="model-grid">
               <div class="aquifer-diagram" aria-label="Labeled halocline aquifer cross-section">
-                <svg viewBox="0 0 760 560" role="img" aria-labelledby="aquifer-title aquifer-desc">
-                  <title id="aquifer-title">Halocline aquifer cross-section</title>
-                  <desc id="aquifer-desc">A labeled schematic showing recharge, canals, well pumping, sea-level boundary, freshwater head, saltwater interface, chloride wedge, and aquifer-base clamp.</desc>
-                  <rect x="0" y="0" width="760" height="560" fill="#f3eee0" />
-                  <path d="M0 130 C120 112 224 120 342 101 C472 80 600 76 760 92 L760 560 L0 560 Z" fill="#e8e1d1" />
-                  <path d="M0 386 C120 374 220 365 336 354 C480 339 628 320 760 298 L760 560 L0 560 Z" fill="#0b1e2f" />
-                  <path d="M330 448 C410 380 500 328 760 260 L760 560 L330 560 Z" fill="#c47838" opacity="0.88" />
-                  <path d="M0 386 C120 374 220 365 336 354 C480 339 628 320 760 298" fill="none" stroke="#f3eee0" stroke-width="7" />
-                  <path d="M0 382 C120 370 220 361 336 350 C480 335 628 316 760 294" fill="none" stroke="#445e72" stroke-width="2" stroke-dasharray="10 9" />
-                  <path d="M20 182 C150 174 264 171 388 155 C520 138 618 128 736 126" fill="none" stroke="#445e72" stroke-width="3" stroke-dasharray="18 12" opacity="0.85" />
-                  <path d="M20 240 C156 232 262 238 384 222 C520 204 640 198 736 190" fill="none" stroke="#445e72" stroke-width="3" stroke-dasharray="18 12" opacity="0.64" />
-                  <path d="M20 296 C152 288 260 300 382 282 C510 263 642 252 736 248" fill="none" stroke="#445e72" stroke-width="3" stroke-dasharray="18 12" opacity="0.46" />
-                  <path d="M0 514 H760" stroke="#445e72" stroke-width="2" stroke-dasharray="8 8" opacity="0.6" />
-                  <path d="M108 100 V362" stroke="#0b1e2f" stroke-width="2" />
-                  <path d="M96 214 C118 200 142 200 164 214 C142 228 118 228 96 214 Z" fill="none" stroke="#0b1e2f" stroke-width="2" opacity="0.5" />
-                  <path d="M480 92 V346" stroke="#0b1e2f" stroke-width="2" />
-                  <path d="M440 256 C470 230 494 230 524 256 C494 282 470 282 440 256 Z" fill="none" stroke="#c47838" stroke-width="2" opacity="0.82" />
-                  <rect x="640" y="92" width="120" height="468" fill="#0b1e2f" opacity="0.2" />
-                  <path d="M638 92 H760" stroke="#0b1e2f" stroke-width="2" />
-                  <path d="M48 74 C84 60 120 60 156 74" fill="none" stroke="#445e72" stroke-width="2" />
-                  <path d="M76 62 V48 M102 58 V40 M128 62 V48" stroke="#445e72" stroke-width="2" />
-                  <path d="M224 95 H322" stroke="#445e72" stroke-width="6" stroke-linecap="round" opacity="0.55" />
-                  <path d="M224 116 H322" stroke="#445e72" stroke-width="6" stroke-linecap="round" opacity="0.42" />
-                  <path d="M690 70 V126" stroke="#0b1e2f" stroke-width="2" />
-                  <path d="M670 126 H730" stroke="#0b1e2f" stroke-width="2" />
-                  <text x="42" y="44" class="diagram-label">Recharge</text>
-                  <text x="214" y="82" class="diagram-label">Modeled canal cells</text>
-                  <text x="422" y="82" class="diagram-label">Pumping well</text>
-                  <text x="594" y="74" class="diagram-label">Sea-level boundary</text>
-                  <rect x="28" y="158" width="204" height="24" fill="#f3eee0" opacity="0.92" />
-                  <text x="38" y="175" class="diagram-note">freshwater head contours</text>
-                  <text x="34" y="374" class="diagram-label" fill="#e8e1d1">Fresh aquifer storage</text>
-                  <text x="392" y="428" class="diagram-label" fill="#e8e1d1">Saline intrusion wedge</text>
-                  <rect x="28" y="516" width="318" height="26" fill="#f3eee0" opacity="0.88" />
-                  <text x="38" y="535" class="diagram-note">provisional aquifer-base display clamp</text>
-                  <rect x="452" y="266" width="174" height="52" fill="#f3eee0" opacity="0.9" />
-                  <text x="466" y="286" class="diagram-note">interface depth</text>
-                  <text x="466" y="306" class="diagram-note">screen depth / Qcrit risk</text>
-                </svg>
+                <div class="scientific-image">
+                  <img
+                    src="/assets/boundary_model.png"
+                    alt="Conceptual cross-section showing recharge, hydraulic head contours, interface depth, pumping wells, and sea boundary."
+                    width="1448"
+                    height="1086"
+                  />
+                </div>
               </div>
 
               <div class="model-cells">
                 <article class="model-cell">
-                  <h3>Head solve</h3>
-                  <p>2D steady-state Darcy solve over the simplified active grid, with mass-balance diagnostics exposed.</p>
+                  <h3>Steady flow solve</h3>
+                  <p>Solves the two-dimensional steady-state Darcy flow equation over the active model grid.</p>
                   <div class="data-row">
                     <span>solver unit</span>
                     <span class="data-value">m / day</span>
@@ -1366,15 +1734,15 @@ export const marketingHtml = String.raw`<!doctype html>
                 </article>
                 <article class="model-cell">
                   <h3>Interface depth</h3>
-                  <p>Ghyben-Herzberg conversion turns head into a sharp-interface estimate and reports display clamps.</p>
+                  <p>Converts freshwater head to a sharp-interface estimate using the Ghyben-Herzberg approximation.</p>
                   <div class="data-row">
                     <span>readout</span>
                     <span class="data-value">depth m</span>
                   </div>
                 </article>
                 <article class="model-cell">
-                  <h3>Well risk</h3>
-                  <p>Upconing stress, Qcrit, and before-after change are summarized per well so the highest-risk wellfield stays visible.</p>
+                  <h3>Intrusion risk</h3>
+                  <p>Computes well-level pumping stress, critical pumping, and risk ratio for each placeholder wellfield.</p>
                   <div class="data-row">
                     <span>ranking</span>
                     <span class="data-value">risk ratio</span>
@@ -1385,14 +1753,16 @@ export const marketingHtml = String.raw`<!doctype html>
           </div>
         </section>
 
-        <section class="section section-ink" aria-label="Product preview">
+        <section class="section section-ink" aria-label="Scenario parameterization and spatial outputs">
           <div class="section-inner product-preview">
             <div class="preview-copy">
-              <p class="label">Scenario surface</p>
-              <h2>A map-facing instrument panel for coastal groundwater decisions</h2>
+              <p class="label">Scenario parameterization</p>
+              <h2>Scenario parameterization and spatial outputs</h2>
               <p>
-                The product surface is not just a chart. It combines scenario controls, a geospatial
-                model layer, well-priority ranking, warnings, and provenance into one inspectable run.
+                Inputs combine scalar controls and spatial fields: recharge multiplier, coastal head,
+                canal stages, well pumping, hydraulic conductivity, fixed-head masks, and active-cell
+                geometry. Outputs are gridded head, estimated interface depth, scenario-baseline
+                differences, and derived well risk metrics.
               </p>
               <a class="button button-secondary" href="/map">Inspect live map</a>
             </div>
@@ -1403,7 +1773,7 @@ export const marketingHtml = String.raw`<!doctype html>
                 <div class="control-stack">
                   <div class="control-row">
                     <span>Preset</span>
-                    <strong>Combined stress</strong>
+                    <strong>Low recharge + high coastal head</strong>
                   </div>
                   <div class="control-row">
                     <span>Recharge</span>
@@ -1424,56 +1794,34 @@ export const marketingHtml = String.raw`<!doctype html>
                 </div>
               </aside>
 
-              <div class="scenario-map-panel" aria-label="Biscayne scenario map preview">
+              <div class="scenario-map-panel scientific-image-frame" aria-label="Pending scenario surface image">
                 <div class="map-title">
                   <strong>Biscayne / Miami-Dade</strong>
-                  <span>model head + reference context</span>
+                  <span>scenario inputs and output grids</span>
                 </div>
-                <svg viewBox="0 0 560 520" role="img" aria-label="Labeled schematic map with canals, isochlors, wells, and intrusion pressure">
-                  <rect width="560" height="520" fill="#e8e1d1" />
-                  <path d="M0 65 H560 M0 130 H560 M0 195 H560 M0 260 H560 M0 325 H560 M0 390 H560 M0 455 H560 M70 0 V520 M140 0 V520 M210 0 V520 M280 0 V520 M350 0 V520 M420 0 V520 M490 0 V520" stroke="#445e72" stroke-width="1" opacity="0.16" />
-                  <path d="M382 0 C404 56 416 118 410 176 C404 236 424 302 448 356 C468 400 472 462 458 520 L560 520 L560 0 Z" fill="#0b1e2f" />
-                  <path d="M320 520 C354 448 394 384 460 346 C498 324 524 302 560 292 L560 520 Z" fill="#c47838" opacity="0.84" />
-                  <path d="M48 112 C124 96 202 104 292 76 C338 62 368 55 404 48" fill="none" stroke="#445e72" stroke-width="4" stroke-dasharray="18 12" opacity="0.82" />
-                  <path d="M34 178 C126 164 224 178 318 142 C360 126 382 126 416 130" fill="none" stroke="#445e72" stroke-width="4" stroke-dasharray="18 12" opacity="0.66" />
-                  <path d="M34 246 C128 232 232 252 334 210 C382 190 412 194 454 210" fill="none" stroke="#445e72" stroke-width="4" stroke-dasharray="18 12" opacity="0.52" />
-                  <path d="M84 342 C142 300 202 324 260 286 C308 256 350 262 394 236" fill="none" stroke="#0b1e2f" stroke-width="3" opacity="0.55" />
-                  <path d="M92 88 C116 112 154 114 186 100 C224 84 260 92 292 116" fill="none" stroke="#445e72" stroke-width="5" opacity="0.36" />
-                  <path d="M102 300 C142 278 180 286 224 304 C260 318 292 310 334 286" fill="none" stroke="#445e72" stroke-width="5" opacity="0.32" />
-                  <circle cx="168" cy="184" r="9" fill="#f3eee0" stroke="#0b1e2f" stroke-width="3" />
-                  <circle cx="268" cy="268" r="10" fill="#c47838" stroke="#0b1e2f" stroke-width="3" />
-                  <circle cx="344" cy="164" r="9" fill="#f3eee0" stroke="#0b1e2f" stroke-width="3" />
-                  <path d="M268 268 m-34 0 a34 22 0 1 0 68 0 a34 22 0 1 0 -68 0" fill="none" stroke="#c47838" stroke-width="2" opacity="0.72" />
-                </svg>
-                <div class="map-legend" aria-label="Map legend">
-                  <div class="legend-row">
-                    <span class="legend-swatch dashed"></span>
-                    <span>USGS isochlor context</span>
-                  </div>
-                  <div class="legend-row">
-                    <span class="legend-swatch"></span>
-                    <span>Modeled coastline / canals</span>
-                  </div>
-                  <div class="legend-row">
-                    <span class="legend-swatch chloride"></span>
-                    <span>Intrusion pressure</span>
-                  </div>
+                <div class="scientific-image">
+                  <img
+                    src="/assets/scenario_surface.png"
+                    alt="Scenario surface graphic showing scalar inputs, spatial fields, head output, interface-depth output, and well-risk markers."
+                    width="987"
+                    height="980"
+                  />
                 </div>
               </div>
 
               <aside class="evidence-rail" aria-label="Scenario evidence">
                 <span class="console-label">Run evidence</span>
                 <div class="evidence-card">
-                  <strong>Highest-risk well</strong>
-                  <span>Central Dade placeholder wellfield</span>
+                  <strong>Well-risk metric</strong>
+                  <span>Risk ratio is derived from pumping and critical pumping, not observed chloride.</span>
                 </div>
                 <div class="evidence-card">
-                  <strong>Wells worsened</strong>
-                  <span><span class="evidence-number">3</span> wells changed against baseline</span>
+                  <strong>Grid outputs</strong>
+                  <span><span class="evidence-number">2</span> primary rasters: head and interface depth.</span>
                 </div>
                 <div class="evidence-card">
-                  <strong>Trace attached</strong>
-                  <span>Pumping, Qcrit, head change, interface change, and warning severity.</span>
+                  <strong>Diagnostics attached</strong>
+                  <span>Convergence, mass-balance residual, warning severity, and assumption notes.</span>
                 </div>
               </aside>
             </div>
@@ -1485,18 +1833,18 @@ export const marketingHtml = String.raw`<!doctype html>
             <div class="section-heading">
               <div>
                 <p class="label">Evidence posture</p>
-                <h2 id="evidence-title">Credible because the limits stay visible</h2>
+                <h2 id="evidence-title">Model outputs are interpretable because assumptions remain visible</h2>
               </div>
               <p>
-                The front end treats trust as part of the interface: provenance, scenario warnings,
-                calculation traces, and non-regulatory model status are first-class content.
+                The interface keeps source provenance, numerical diagnostics, warning conditions,
+                and non-regulatory model status adjacent to the modeled outputs.
               </p>
             </div>
 
             <div class="evidence-grid">
               <article class="evidence-item">
                 <h3>Source attribution</h3>
-                <p>Reference layers name the agency source, access path, transformation, and Stage 1 limitations.</p>
+                <p>Reference layers identify agency source, access path, transformation, and Stage 1 limitations.</p>
                 <div class="evidence-meta">
                   <span>USGS isochlors <strong>2018 / 2022</strong></span>
                   <span>SFWMD canals <strong>reference</strong></span>
@@ -1504,7 +1852,7 @@ export const marketingHtml = String.raw`<!doctype html>
               </article>
               <article class="evidence-item">
                 <h3>Assumption readouts</h3>
-                <p>Controls expose recharge, pumping, canal stage, sea level, and tuning values instead of hiding them behind a score.</p>
+                <p>Controls expose recharge, pumping, canal stage, coastal head, and tuning values instead of hiding them behind a score.</p>
                 <div class="evidence-meta">
                   <span>base recharge <strong>visible</strong></span>
                   <span>K scale <strong>visible</strong></span>
@@ -1512,7 +1860,7 @@ export const marketingHtml = String.raw`<!doctype html>
               </article>
               <article class="evidence-item">
                 <h3>Uncertainty language</h3>
-                <p>Warnings and diagnostics distinguish model guardrails from observed field truth and future calibration work.</p>
+                <p>Warnings and diagnostics distinguish model guardrails from observed field conditions and future calibration work.</p>
                 <div class="evidence-meta">
                   <span>model status <strong>Stage 1</strong></span>
                   <span>regulatory use <strong>not claimed</strong></span>
@@ -1522,14 +1870,264 @@ export const marketingHtml = String.raw`<!doctype html>
           </div>
         </section>
 
+        <section class="section" id="research" aria-labelledby="research-title">
+          <div class="section-inner">
+            <div class="section-heading">
+              <div>
+                <p class="label">Why the research track exists</p>
+                <h2 id="research-title">Coastal-aquifer calibration requires more model evaluations than manual scenario testing can support</h2>
+              </div>
+              <p>
+                Stage 1 keeps the calculation chain inspectable, but operational groundwater
+                management eventually requires repeated high-fidelity calibration and uncertainty
+                runs. The research track uses surrogate models to screen candidate scenarios before
+                committing compute time to MODFLOW, SEAWAT, or PFLOTRAN-class simulators.
+              </p>
+            </div>
+
+            <div class="research-thesis">
+              <article class="research-panel">
+                <h3>The management problem</h3>
+                <p>
+                  MODFLOW-family, SEAWAT, SUTRA, and PFLOTRAN-style workflows can represent
+                  subsurface physics more completely, but calibration, uncertainty quantification, and
+                  operational scenario sweeps require many repeated forward runs. Surrogates are useful
+                  only if they reduce that search space while preserving enough spatial structure to
+                  select the correct high-fidelity runs.
+                </p>
+              </article>
+
+              <div class="research-kpis" aria-label="Research motivation metrics">
+                <div class="research-kpi">
+                  <span>GeoFUSE benchmark</span>
+                  <strong>360,000x</strong>
+                  <em>reported speedup from PFLOTRAN-scale runs to U-FNO inference</em>
+                </div>
+                <div class="research-kpi">
+                  <span>GeoFUSE training base</span>
+                  <strong>1,500</strong>
+                  <em>geological realizations used for U-FNO training</em>
+                </div>
+                <div class="research-kpi">
+                  <span>Our current test</span>
+                  <strong>4k / 500 / 500</strong>
+                  <em>synthetic oracle train, validation, and held-out test split</em>
+                </div>
+                <div class="research-kpi">
+                  <span>Target operating model</span>
+                  <strong>days</strong>
+                  <em>use surrogates to identify the right expensive runs, not replace validation</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-ink" id="papers" aria-labelledby="papers-title">
+          <div class="section-inner">
+            <div class="section-heading">
+              <div>
+                <p class="label">Research lineage</p>
+                <h2 id="papers-title">GeoFUSE establishes the surrogate-model precedent for seawater intrusion</h2>
+              </div>
+              <p>
+                GeoFUSE pairs PFLOTRAN-generated seawater-intrusion simulations with U-FNO
+                inference, PCA parameterization, and ESMDA data assimilation. Halocline uses that
+                result as the research baseline while testing whether WNO and GNN methods can
+                better preserve spatial heterogeneity.
+              </p>
+            </div>
+
+            <div class="paper-grid" aria-label="Key research papers">
+              <article class="paper-card">
+                <h3>GeoFUSE</h3>
+                <p>
+                  Jiang, Liu, and Dwivedi integrate U-FNO, PCA, and ESMDA for seawater intrusion
+                  prediction and uncertainty reduction on a Beaver Creek cross-section.
+                </p>
+                <a href="https://arxiv.org/abs/2410.20118" target="_blank" rel="noreferrer">arXiv 2410.20118</a>
+              </article>
+              <article class="paper-card">
+                <h3>U-FNO / FNO</h3>
+                <p>
+                  The Fourier neural operator lineage supplies the fast operator approximation. GeoFUSE
+                  uses U-FNO, based on Wen et al. and Li et al., to estimate pressure and salinity fields.
+                </p>
+                <a href="https://doi.org/10.1016/j.advwatres.2022.104180" target="_blank" rel="noreferrer">Wen et al. 2022</a>
+              </article>
+              <article class="paper-card">
+                <h3>WNO / GNN path</h3>
+                <p>
+                  WNO brings localized multiresolution operators; graph-network surrogates bring
+                  mesh and connectivity awareness for wells, canals, faults, and irregular geology.
+                </p>
+                <a href="https://doi.org/10.1016/j.cma.2022.115783" target="_blank" rel="noreferrer">WNO reference</a>
+              </article>
+            </div>
+
+            <div class="reference-list" aria-label="GeoFUSE reference family">
+              <span>Werner et al. 2013 seawater intrusion review</span>
+              <span>Ketabchi et al. 2016 sea-level-rise review</span>
+              <span>Langevin and Guo 2006; SEAWAT 2008</span>
+              <span>Provost and Voss 2019 SUTRA</span>
+              <span>Hammond et al. 2014 PFLOTRAN</span>
+              <span>Yabusaki et al. 2020 Beaver Creek</span>
+              <span>Emerick and Reynolds 2013 ESMDA</span>
+              <span>Arora et al. 2011 / 2012 inverse estimation</span>
+              <span>Bhattacharjya and Datta 2009 ANN-GA</span>
+              <span>Sreekanth and Datta 2010 surrogate management</span>
+              <span>Hussain et al. 2015 simulation optimization</span>
+              <span>Rajabi and Ketabchi 2017 Gaussian emulation</span>
+              <span>Mo et al. 2019 deep autoregressive groundwater</span>
+              <span>Tang et al. 2020 dynamic subsurface surrogate</span>
+              <span>Li et al. 2020 Fourier neural operator</span>
+              <span>Wen et al. 2022 U-FNO multiphase flow</span>
+              <span>Meray et al. 2024 groundwater contamination surrogate</span>
+              <span>Cao et al. 2024 coastal-aquifer data assimilation</span>
+              <span>Han et al. 2024 CO2 storage surrogate</span>
+              <span>Jiang and Durlofsky 2023 multifidelity surrogates</span>
+              <span>Jiang and Durlofsky 2024 data-space inversion</span>
+              <span>Goebel et al. 2017 resistivity intrusion imaging</span>
+              <span>Dodangeh et al. 2022 joint coastal aquifer inversion</span>
+              <span>Yoon et al. 2017 saline aquifer pressure data</span>
+              <span>Zhou et al. 2022 simultaneous property inference</span>
+              <span>Zhou and Tartakovsky 2021 NN-surrogate MCMC</span>
+              <span>Sonnenborg et al. 2015 geology uncertainty</span>
+              <span>He et al. 2015 hydrological predictive uncertainty</span>
+              <span>Ebong et al. 2020 stochastic petrophysical modeling</span>
+              <span>Messier et al. 2015 groundwater radon estimation</span>
+              <span>Remy et al. 2009 SGeMS geostatistics</span>
+              <span>Siler et al. 2019 3D geothermal geology</span>
+              <span>Torresan et al. 2020 3D hydrogeology</span>
+              <span>Strati et al. 2017 integrated 3D crust model</span>
+              <span>Dwivedi et al. 2018 riparian hot moments</span>
+              <span>Zhong et al. 2019 cDC-GAN plume prediction</span>
+              <span>Kingma and Ba 2014 Adam optimizer</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-light" id="study" aria-labelledby="study-title">
+          <div class="section-inner">
+            <div class="section-heading">
+              <div>
+                <p class="label">Current Halocline study</p>
+                <h2 id="study-title">The current U-FNO experiment is trained on synthetic physics-oracle data</h2>
+              </div>
+              <p>
+                This was a compute and workflow test, not a MODFLOW/SEAWAT replacement and
+                not a field-validated aquifer model. We rented GPU compute, generated synthetic
+                oracle data from the Python Stage 1 solver, trained a U-FNO-style surrogate, and
+                measured held-out error and inference speed.
+              </p>
+            </div>
+
+            <div class="study-grid">
+              <div>
+                <article class="study-card">
+                  <h3>Generated data</h3>
+                  <p>
+                    Latin Hypercube samples varied recharge, sea-level rise, three placeholder well
+                    pumpings, eleven canal stages, and five calibration-lite tuning controls. Each sample
+                    was solved by the Python oracle and stored as HDF5.
+                  </p>
+                  <div class="data-schema" aria-label="U-FNO generated data schema">
+                    <div class="schema-row"><span>Split</span><strong>4,000 train / 500 val / 500 test</strong></div>
+                    <div class="schema-row"><span>Grid</span><strong>37 x 21 active-mask domain</strong></div>
+                    <div class="schema-row"><span>Grid inputs</span><strong>mask, x, y, K, recharge, pumping, fixed head, fixed-head mask</strong></div>
+                    <div class="schema-row"><span>Extra inputs</span><strong>7 scalar controls + well pumping + canal stages</strong></div>
+                    <div class="schema-row"><span>Targets</span><strong>head grid + interface-depth grid</strong></div>
+                  </div>
+                </article>
+                <article class="study-card">
+                  <h3>Careful framing</h3>
+                  <p>
+                    Accuracy is measured against a simplified synthetic oracle, not observations. The
+                    oracle is a 2D steady sharp-interface model, not a calibrated MODFLOW, SEAWAT, or
+                    PFLOTRAN model. The surrogate accelerates this simplified oracle; it does not
+                    replace high-fidelity numerical simulation or site calibration.
+                  </p>
+                </article>
+              </div>
+
+              <div class="chart-panel" aria-label="U-FNO benchmark charts">
+                <div class="chart-title">
+                  <strong>U-FNO prediction vs synthetic physics oracle</strong>
+                  <span>held-out test set</span>
+                </div>
+                <div class="scientific-image ufno-placeholder">
+                  <img
+                    src="/assets/ufno_heatmap.png"
+                    alt="U-FNO held-out comparison heatmap showing synthetic physics oracle, surrogate prediction, and absolute error."
+                    width="1448"
+                    height="1086"
+                  />
+                </div>
+                <p class="image-caption">
+                  U-FNO prediction vs synthetic physics oracle (held-out test set). Summary metrics:
+                  head MAE 1.78 m, interface-depth MAE 8.02 m, batch-2048 inference speedup 174.57x
+                  versus the Python oracle.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="roadmap" aria-labelledby="roadmap-title">
+          <div class="section-inner">
+            <div class="section-heading">
+              <div>
+                <p class="label">Research direction</p>
+                <h2 id="roadmap-title">Use surrogate speed where it helps, then spend simulator time where it matters</h2>
+              </div>
+              <p>
+                The next step is to test surrogate architectures that preserve spatial structure
+                in high- and low-variance geologic zones,
+                then use that speed to choose better MODFLOW, SEAWAT, or PFLOTRAN calibration runs.
+              </p>
+            </div>
+
+            <div class="roadmap-grid">
+              <article class="roadmap-card">
+                <span class="roadmap-index">01 / WNO</span>
+                <h3>Local frequency fit</h3>
+                <p>
+                  Wavelet neural operators are attractive because wavelets can localize information
+                  across space and scale. That is the right failure mode to test when Fourier-style
+                  surrogates risk blurring sharp salinity fronts or high-variance hydraulic properties.
+                </p>
+              </article>
+              <article class="roadmap-card">
+                <span class="roadmap-index">02 / GNN</span>
+                <h3>Geometry and connectivity</h3>
+                <p>
+                  Graph surrogates can represent irregular cells, wells, canal links, boundaries, and
+                  local neighborhoods more naturally than a rectangular image alone. That matters as
+                  Halocline moves from Stage 1 grids toward utility and consultant model domains.
+                </p>
+              </article>
+              <article class="roadmap-card">
+                <span class="roadmap-index">03 / Simulator triage</span>
+                <h3>Run the expensive model on the right cases</h3>
+                <p>
+                  The practical target is a workflow where surrogate sweeps narrow thousands of
+                  candidates to the small set of scenarios and calibration runs that deserve full
+                  simulator time, shortening delivery from open-ended compute cycles to days or a week.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section class="section section-ink cta-band" aria-labelledby="cta-title">
           <div class="section-inner cta-grid">
             <div class="cta-copy">
               <p class="label">Working draft</p>
-              <h2 id="cta-title">Move from brand promise to the live scenario surface</h2>
+              <h2 id="cta-title">Inspect the Stage 1 model and the surrogate-research path</h2>
               <p>
-                The homepage now explains the company through the thing Halocline is building:
-                an inspectable coastal aquifer simulation workflow connected to the Stage 1 map.
+                The current product exposes the Stage 1 scenario calculation chain. The research
+                track evaluates whether surrogate models can reduce the number of expensive
+                simulator runs required for calibration and uncertainty analysis.
               </p>
             </div>
             <div class="cta-actions">
@@ -1546,7 +2144,7 @@ export const marketingHtml = String.raw`<!doctype html>
             <img src="/assets/halocline-mark.png" alt="" width="768" height="804" aria-hidden="true" />
             Halocline
           </span>
-          <span>Interactive simulation for coastal aquifer management. Stage 1 is provisional and non-regulatory.</span>
+          <span>Scenario-driven coastal-aquifer modeling. Stage 1 is provisional and non-regulatory.</span>
         </div>
       </footer>
     </div>

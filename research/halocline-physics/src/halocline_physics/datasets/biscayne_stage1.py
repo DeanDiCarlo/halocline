@@ -17,7 +17,7 @@ from halocline_physics.types import (
 )
 
 
-def _repo_root() -> Path:
+def _research_root() -> Path:
     return Path(__file__).resolve().parents[4]
 
 
@@ -112,7 +112,7 @@ def _canal(raw: dict[str, Any]) -> Canal:
 def load_biscayne_stage1_dataset(
     geometry_path: str | Path | None = None,
 ) -> Stage1Dataset:
-    path = Path(geometry_path) if geometry_path is not None else _repo_root() / "reference_snapshots" / "grid_geometry.json"
+    path = Path(geometry_path) if geometry_path is not None else _research_root() / "reference_snapshots" / "grid_geometry.json"
     raw = json.loads(path.read_text(encoding="utf8"))["dataset"]
     grid = _grid(raw["grid"])
     cells_by_id = {cell.id: cell for cell in grid.cells}

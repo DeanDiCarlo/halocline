@@ -65,6 +65,9 @@ async function sendPng(
 const staticPngAssets = new Map<string, URL>([
   ["/assets/halocline-mark.png", new URL("./assets/halocline-mark.png", import.meta.url)],
   ["/assets/halocline-wordmark.png", new URL("./assets/halocline-wordmark.png", import.meta.url)],
+  ["/assets/boundary_model.png", new URL("./assets/boundary_model.png", import.meta.url)],
+  ["/assets/scenario_surface.png", new URL("./assets/scenario_surface.png", import.meta.url)],
+  ["/assets/ufno_heatmap.png", new URL("./assets/ufno_heatmap.png", import.meta.url)],
 ]);
 
 const checkpointHtml = String.raw`<!doctype html>

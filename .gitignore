@@ -51,8 +51,8 @@ pnpm-debug.log*
 
 # ---------- ML training artifacts ----------
 # Generated datasets (regeneratable from the physics oracle).
-# reference_snapshots/ is intentionally NOT ignored — it's the foundational
-# TS-vs-Python parity reference and must travel with the repo.
+# research/reference_snapshots/ is intentionally NOT ignored — it's the
+# foundational TS-vs-Python parity reference and must travel with the repo.
 *.h5
 *.hdf5
 *.zarr/

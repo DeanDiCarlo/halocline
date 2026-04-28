@@ -4,12 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Layout
 
-Top-level `halocline/` contains only `LICENSE` and the `halocline-stage1/` Node.js workspace. All code, tests, and commands live inside `halocline-stage1/` — `cd halocline-stage1` before running anything.
+Top-level `halocline/` is intentionally split by intent:
+
+- `product/` contains runnable product/front-end work: `product/halocline-stage1/` for the current Stage 1 Node.js product, `product/halocline-app/` for the static Vercel surrogate demo frontend, plus brand docs and original logo assets.
+- `research/` contains experimental and research work: the Python physics oracle port, surrogate training/evaluation package, frozen parity snapshots, visualizations, logs, and future architecture notes.
+
+All Stage 1 app code, tests, and commands live inside `product/halocline-stage1/` — `cd product/halocline-stage1` before running Node product commands.
 
 ## Commands
 
 ```bash
-cd halocline-stage1
+cd product/halocline-stage1
 npm run dev      # Start local server on http://127.0.0.1:3000 (alias: npm run demo)
 npm test         # Run the full Node native test suite
 ```
@@ -75,7 +80,7 @@ The browser uses MapLibre GL JS via CDN with an OpenFreeMap basemap; the SVG gri
 
 ### Sprint-driven feature accretion
 
-The `halocline-stage1/README.md` is organized as a sprint log (Sprint 1 through Sprint 10D). It is the authoritative record of what each piece of the API, view-model, and UI is for, and what is intentionally out-of-scope at each stage. **Read the relevant sprint sections before extending a feature** — many response fields exist to satisfy a specific sprint's stakeholder-facing requirement, and the README states what each sprint did *not* add.
+The `product/halocline-stage1/README.md` is organized as a sprint log (Sprint 1 through Sprint 10D). It is the authoritative record of what each piece of the API, view-model, and UI is for, and what is intentionally out-of-scope at each stage. **Read the relevant sprint sections before extending a feature** — many response fields exist to satisfy a specific sprint's stakeholder-facing requirement, and the README states what each sprint did *not* add.
 
 ## Self-Maintenance
 

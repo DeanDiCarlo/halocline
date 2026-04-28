@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-04-27T22:50:03.606Z",
-  "generator": "halocline-stage1/scripts/export_reference.mjs",
+  "generator": "product/halocline-stage1/scripts/export_reference.mjs",
   "dataset": {
     "domain": {
       "id": "biscayne-stage1-domain",

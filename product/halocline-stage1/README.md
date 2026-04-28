@@ -55,7 +55,7 @@ http://127.0.0.1:3000/checkpoint
 
 ## Branded Website Draft
 
-The root route (`/`) is a brand-facing website draft built from `BRANDING.md` and the supplied logo assets. It uses the Halocline palette (`ink`, `bone`, `steel`, `chloride`), Inter and IBM Plex Mono, flat cross-section motifs, and trust copy that preserves the Stage 1 non-regulatory disclaimer.
+The root route (`/`) is a brand-facing website draft built from `../BRANDING.md` and the supplied logo assets. It uses the Halocline palette (`ink`, `bone`, `steel`, `chloride`), Inter and IBM Plex Mono, flat cross-section motifs, and trust copy that preserves the Stage 1 non-regulatory disclaimer.
 
 The web-sized logo derivatives live under `app/assets/` and are served by the local Node server:
 
