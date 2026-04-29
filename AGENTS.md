@@ -19,7 +19,7 @@ npm run dev      # Start local server on http://127.0.0.1:3000 (alias: npm run d
 npm test         # Run the full Node native test suite
 ```
 
-There is no `package-lock.json` and no third-party dependencies — `npm install` is a no-op. The project requires **Node ≥ 24** because it relies on native TypeScript execution (`node app/checkpointServer.ts`) and `node --test` with TS files. There is no bundler, no Next.js, no Express, no React, and no lint script.
+The app has no runtime npm dependencies, but it does keep `typescript` and `@types/node` as dev dependencies so Vercel can compile the TypeScript function entrypoint with Node built-in module and `process` types. The project requires **Node ≥ 24** because it relies on native TypeScript execution (`node app/checkpointServer.ts`) and `node --test` with TS files. There is no bundler, no Next.js, no Express, no React, and no lint script.
 
 ### Running a single test
 

@@ -5,6 +5,7 @@
     "moduleResolution": "NodeNext",
     "strict": true,
     "allowImportingTsExtensions": true,
+    "types": ["node"],
     "noEmit": true
   },
   "include": ["api/**/*.ts", "app/**/*.ts", "src/**/*.ts", "tests/**/*.ts"]

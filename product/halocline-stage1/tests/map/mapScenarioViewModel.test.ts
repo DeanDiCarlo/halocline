@@ -263,10 +263,14 @@ test("map scenario sea-level input changes interface depth", () => {
   const raisedSeaLevel = buildMapScenarioViewModel({ input: { seaLevelRiseMeters: 0.3 } });
   const changedCell = baseline.grid.cells.find((baselineCell) => {
     const raisedCell = raisedSeaLevel.grid.cells.find((cell) => cell.id === baselineCell.id);
+    if (!raisedCell) {
+      return false;
+    }
+
     return (
       baselineCell.active &&
       baselineCell.interfaceDepthMeters !== null &&
-      raisedCell?.interfaceDepthMeters !== null &&
+      raisedCell.interfaceDepthMeters !== null &&
       raisedCell.interfaceDepthMeters !== baselineCell.interfaceDepthMeters
     );
   });

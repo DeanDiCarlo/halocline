@@ -19,11 +19,12 @@ import { marketingHtml } from "./marketingPage.ts";
 const host = process.env.HOST ?? "127.0.0.1";
 const port = Number(process.env.PORT ?? 3000);
 
-function readRequestBody(request: Parameters<Parameters<typeof createServer>[0]>[0]): Promise<string> {
+function readRequestBody(request: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     let body = "";
 
-    request.on("data", (chunk) => {
+    request.setEncoding("utf8");
+    request.on("data", (chunk: string) => {
       body += chunk;
     });
     request.on("end", () => resolve(body));
@@ -32,7 +33,7 @@ function readRequestBody(request: Parameters<Parameters<typeof createServer>[0]>
 }
 
 function sendJson(
-  response: Parameters<Parameters<typeof createServer>[0]>[1],
+  response: ServerResponse,
   statusCode: number,
   payload: unknown,
 ): void {
@@ -43,7 +44,7 @@ function sendJson(
   response.end(JSON.stringify(payload));
 }
 
-function sendHtml(response: Parameters<Parameters<typeof createServer>[0]>[1], html: string): void {
+function sendHtml(response: ServerResponse, html: string): void {
   response.writeHead(200, {
     "content-type": "text/html; charset=utf-8",
     "cache-control": "no-store",
@@ -52,7 +53,7 @@ function sendHtml(response: Parameters<Parameters<typeof createServer>[0]>[1], h
 }
 
 async function sendPng(
-  response: Parameters<Parameters<typeof createServer>[0]>[1],
+  response: ServerResponse,
   fileUrl: URL,
 ): Promise<void> {
   const image = await readFile(fileUrl);

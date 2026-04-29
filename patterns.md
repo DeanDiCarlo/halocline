@@ -10,6 +10,6 @@
 ## Vercel Adapter for Raw Node Stage 1
 
 - Problem: Vercel cannot deploy the Stage 1 product by running `npm run dev`, and setting the root directory alone can leave `/` as a 404.
-- Root cause: `app/checkpointServer.ts` was a long-running `node:http` server that immediately called `server.listen(...)`; Vercel expects a function exported from the project-root `api/` directory.
-- Working solution: Export `handleCheckpointRequest` from `app/checkpointServer.ts`, only call `listen` when that file is run directly, add `api/index.ts` as the Vercel function, and rewrite `/(.*)` to `/api` in `vercel.json`.
+- Root cause: `app/checkpointServer.ts` was a long-running `node:http` server that immediately called `server.listen(...)`; Vercel expects a function exported from the project-root `api/` directory and needs project-local TypeScript/Node type packages during compilation.
+- Working solution: Export `handleCheckpointRequest` from `app/checkpointServer.ts`, only call `listen` when that file is run directly, add `api/index.ts` as the Vercel function, rewrite `/(.*)` to `/api` in `vercel.json`, and keep `typescript` plus `@types/node` installed as dev dependencies.
 - When to apply: Any time the raw Node Stage 1 frontend needs to run on Vercel without converting to Next/Vite/Express.
