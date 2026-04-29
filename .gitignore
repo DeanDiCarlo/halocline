@@ -48,6 +48,7 @@ pnpm-debug.log*
 .pnp.*
 .yarn/
 *.tsbuildinfo
+product/halocline-stage1/web/
 
 # ---------- ML training artifacts ----------
 # Generated datasets (regeneratable from the physics oracle).

@@ -7,9 +7,9 @@
 - Working solution: Keep product commands rooted at `product/halocline-stage1`, keep frozen parity data at `research/reference_snapshots`, and make cross-boundary paths explicit from the workspace or research root.
 - When to apply: Any time a script or test reads generated reference data across the `product/` and `research/` boundary.
 
-## Vercel Adapter for Raw Node Stage 1
+## Vite Static Frontend With Vercel API
 
-- Problem: Vercel cannot deploy the Stage 1 product by running `npm run dev`, and setting the root directory alone can leave `/` as a 404.
-- Root cause: `app/checkpointServer.ts` was a long-running `node:http` server that immediately called `server.listen(...)`; Vercel expects a function exported from the project-root `api/` directory and needs project-local TypeScript/Node type packages during compilation.
-- Working solution: Export `handleCheckpointRequest` from `app/checkpointServer.ts`, only call `listen` when that file is run directly, add `api/index.ts` as the Vercel function, rewrite `/(.*)` to `/api` in `vercel.json`, and keep `typescript` plus `@types/node` installed as dev dependencies.
-- When to apply: Any time the raw Node Stage 1 frontend needs to run on Vercel without converting to Next/Vite/Express.
+- Problem: Rewriting every route to a Vercel function made the Stage 1 frontend behave like a raw Node server on a platform designed around static frontend output plus request-scoped functions.
+- Root cause: `app/checkpointServer.ts` mixed static HTML, PNG delivery, local server startup, and JSON model endpoints in one bundle, so Vercel had to invoke serverless code for pages and assets that should be static.
+- Working solution: Generate static HTML into ignored `web/` pages, build them with Vite into `dist/`, serve PNGs from `public/assets/`, keep shared API behavior in `app/apiRoutes.ts`, and expose concrete `api/*.ts` entrypoints for each `/api/*` route.
+- When to apply: Any time frontend routes or assets can be served statically while model/scenario work still needs Vercel Functions.

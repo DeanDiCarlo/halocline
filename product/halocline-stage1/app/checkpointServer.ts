@@ -1,25 +1,20 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
+import type { IncomingHttpHeaders } from "node:http";
 
-import {
-  runCheckpointScenario,
-  type CheckpointScenarioInput,
-} from "../src/lib/checkpoint/checkpointScenarioRunner.ts";
 import {
   buildMapShellViewModel,
   mapPointsToSvgPoints,
 } from "../src/lib/map/mapShellViewModel.ts";
-import {
-  buildMapScenarioViewModel,
-  type MapScenarioInput,
-} from "../src/lib/map/mapScenarioViewModel.ts";
+import { buildMapScenarioViewModel } from "../src/lib/map/mapScenarioViewModel.ts";
+import { handleApiFetch } from "./apiRoutes.ts";
 import { marketingHtml } from "./marketingPage.ts";
 
 const host = process.env.HOST ?? "127.0.0.1";
 const port = Number(process.env.PORT ?? 3000);
 
-function readRequestBody(request: IncomingMessage): Promise<string> {
+function readNodeRequestBody(request: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     let body = "";
 
@@ -32,36 +27,79 @@ function readRequestBody(request: IncomingMessage): Promise<string> {
   });
 }
 
-function sendJson(
-  response: ServerResponse,
+function jsonResponse(
   statusCode: number,
   payload: unknown,
-): void {
-  response.writeHead(statusCode, {
-    "content-type": "application/json; charset=utf-8",
-    "cache-control": "no-store",
+): Response {
+  return new Response(JSON.stringify(payload), {
+    status: statusCode,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "no-store",
+    },
   });
-  response.end(JSON.stringify(payload));
 }
 
-function sendHtml(response: ServerResponse, html: string): void {
-  response.writeHead(200, {
-    "content-type": "text/html; charset=utf-8",
-    "cache-control": "no-store",
+function htmlResponse(html: string): Response {
+  return new Response(html, {
+    status: 200,
+    headers: {
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "no-store",
+    },
   });
-  response.end(html);
 }
 
-async function sendPng(
-  response: ServerResponse,
-  fileUrl: URL,
-): Promise<void> {
+async function pngResponse(fileUrl: URL): Promise<Response> {
   const image = await readFile(fileUrl);
-  response.writeHead(200, {
-    "content-type": "image/png",
-    "cache-control": "public, max-age=3600",
+  return new Response(image, {
+    status: 200,
+    headers: {
+      "content-type": "image/png",
+      "cache-control": "public, max-age=3600",
+    },
   });
-  response.end(image);
+}
+
+function nodeHeadersToWebHeaders(nodeHeaders: IncomingHttpHeaders): Headers {
+  const headers = new Headers();
+  for (const [key, value] of Object.entries(nodeHeaders)) {
+    if (value === undefined) {
+      continue;
+    }
+    if (Array.isArray(value)) {
+      value.forEach((item) => headers.append(key, item));
+      continue;
+    }
+    headers.set(key, value);
+  }
+  return headers;
+}
+
+async function nodeRequestToWebRequest(request: IncomingMessage): Promise<Request> {
+  const protocolHeader = request.headers["x-forwarded-proto"];
+  const protocol = Array.isArray(protocolHeader) ? protocolHeader[0] : protocolHeader;
+  const origin = `${protocol ?? "http"}://${request.headers.host ?? "localhost"}`;
+  const url = new URL(request.url ?? "/", origin);
+  const method = request.method ?? "GET";
+  const init: RequestInit = {
+    method,
+    headers: nodeHeadersToWebHeaders(request.headers),
+  };
+
+  if (method !== "GET" && method !== "HEAD") {
+    init.body = await readNodeRequestBody(request);
+  }
+
+  return new Request(url, init);
+}
+
+async function sendWebResponse(response: ServerResponse, webResponse: Response): Promise<void> {
+  response.statusCode = webResponse.status;
+  webResponse.headers.forEach((value, key) => {
+    response.setHeader(key, value);
+  });
+  response.end(Buffer.from(await webResponse.arrayBuffer()));
 }
 
 const staticPngAssets = new Map<string, URL>([
@@ -72,7 +110,7 @@ const staticPngAssets = new Map<string, URL>([
   ["/assets/ufno_heatmap.png", new URL("./assets/ufno_heatmap.png", import.meta.url)],
 ]);
 
-const checkpointHtml = String.raw`<!doctype html>
+export const checkpointHtml = String.raw`<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -1159,7 +1197,7 @@ function renderScenarioBriefPrint(viewModel = mapScenarioViewModel): string {
   </article>`;
 }
 
-const mapShellHtml = String.raw`<!doctype html>
+export const mapShellHtml = String.raw`<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -4882,72 +4920,43 @@ const mapShellHtml = String.raw`<!doctype html>
   </body>
 </html>`;
 
-export async function handleCheckpointRequest(request: IncomingMessage, response: ServerResponse): Promise<void> {
-  const url = new URL(request.url ?? "/", `http://${request.headers.host ?? "localhost"}`);
+export async function handleCheckpointFetch(request: Request): Promise<Response> {
+  const url = new URL(request.url);
 
   try {
     const staticPngAsset = staticPngAssets.get(url.pathname);
     if (request.method === "GET" && staticPngAsset) {
-      await sendPng(response, staticPngAsset);
-      return;
+      return await pngResponse(staticPngAsset);
     }
 
     if (request.method === "GET" && url.pathname === "/") {
-      sendHtml(response, marketingHtml);
-      return;
+      return htmlResponse(marketingHtml);
     }
 
     if (request.method === "GET" && url.pathname === "/checkpoint") {
-      sendHtml(response, checkpointHtml);
-      return;
+      return htmlResponse(checkpointHtml);
     }
 
     if (request.method === "GET" && url.pathname === "/map") {
-      sendHtml(response, mapShellHtml);
-      return;
+      return htmlResponse(mapShellHtml);
     }
 
-    if (request.method === "GET" && url.pathname === "/api/map-shell") {
-      sendJson(response, 200, mapShellViewModel);
-      return;
+    if (url.pathname === "/api" || url.pathname.startsWith("/api/")) {
+      return await handleApiFetch(request);
     }
 
-    if (request.method === "GET" && url.pathname === "/api/map-scenario") {
-      sendJson(response, 200, mapScenarioViewModel);
-      return;
-    }
-
-    if (request.method === "POST" && url.pathname === "/api/map-scenario") {
-      const body = await readRequestBody(request);
-      const input = body.length > 0 ? (JSON.parse(body) as MapScenarioInput) : {};
-      sendJson(response, 200, buildMapScenarioViewModel({ input }));
-      return;
-    }
-
-    if (
-      request.method === "GET" &&
-      (url.pathname === "/api/scenario" || url.pathname === "/api/checkpoint")
-    ) {
-      sendJson(response, 200, runCheckpointScenario());
-      return;
-    }
-
-    if (
-      request.method === "POST" &&
-      (url.pathname === "/api/scenario" || url.pathname === "/api/checkpoint")
-    ) {
-      const body = await readRequestBody(request);
-      const input = body.length > 0 ? (JSON.parse(body) as CheckpointScenarioInput) : {};
-      sendJson(response, 200, runCheckpointScenario(input));
-      return;
-    }
-
-    sendJson(response, 404, { error: "Not found" });
+    return jsonResponse(404, { error: "Not found" });
   } catch (error) {
-    sendJson(response, 500, {
+    return jsonResponse(500, {
       error: error instanceof Error ? error.message : "Unknown server error",
     });
   }
+}
+
+export async function handleCheckpointRequest(request: IncomingMessage, response: ServerResponse): Promise<void> {
+  const webRequest = await nodeRequestToWebRequest(request);
+  const webResponse = await handleCheckpointFetch(webRequest);
+  await sendWebResponse(response, webResponse);
 }
 
 export function createCheckpointServer() {

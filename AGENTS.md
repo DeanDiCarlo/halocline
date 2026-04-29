@@ -15,11 +15,13 @@ All Stage 1 app code, tests, and commands live inside `product/halocline-stage1/
 
 ```bash
 cd product/halocline-stage1
-npm run dev      # Start local server on http://127.0.0.1:3000 (alias: npm run demo)
+npm run dev      # Generate static pages and start Vite on http://127.0.0.1:5173
+npm run build    # Generate static pages and build Vite output to dist/
+npm run typecheck
 npm test         # Run the full Node native test suite
 ```
 
-The app has no runtime npm dependencies, but it does keep `typescript` and `@types/node` as dev dependencies so Vercel can compile the TypeScript function entrypoint with Node built-in module and `process` types. The project requires **Node ≥ 24** because it relies on native TypeScript execution (`node app/checkpointServer.ts`) and `node --test` with TS files. There is no bundler, no Next.js, no Express, no React, and no lint script.
+The app has no runtime npm dependencies, but it does keep Vite, `typescript`, and `@types/node` as dev dependencies so Vercel can build static frontend output and compile the TypeScript function entrypoint with Node built-in module and `process` types. The project requires **Node ≥ 24** because it relies on native TypeScript execution for scripts/tests and `node --test` with TS files. There is no Next.js, no Express, no React, and no lint script.
 
 ### Running a single test
 
@@ -66,14 +68,25 @@ The HTTP layer is intentionally thin. Each route delegates to a view-model build
 
 When adding a new stakeholder-facing field (narrative, ranking, evidence, brief, etc.), the established pattern is: extend the view-model builder so the server returns display-ready strings/sort orders, and let the browser render them. Sort orders and copy live server-side; toggles and selection live client-side.
 
-### HTTP server (`app/checkpointServer.ts`)
+### Frontend and API surfaces
 
-A single-file `node:http` server (~6 KLOC, mostly inlined HTML/CSS/JS for the branded website, map, and checkpoint pages). Routes:
+The frontend is Vite-built static HTML generated from TypeScript page strings:
+
+- `scripts/generateStaticPages.ts` writes generated HTML into ignored `web/` routes before `npm run dev` and `npm run build`.
+- `vite.config.ts` uses `web/` as the Vite root, serves `public/` static assets, builds to `dist/`, and wires `/api/*` to the API handler during local Vite dev.
+- `app/checkpointServer.ts` still contains the generated page strings and a legacy `node:http` adapter available through `npm run server:dev`.
+- `app/apiRoutes.ts` is the Vercel/serverless API surface and must not import the page renderer.
+- `api/*.ts` files are thin Vercel entrypoints for the concrete `/api/*` routes.
+
+Static routes:
 
 - `GET /` → branded Halocline website draft using `product/BRANDING.md` tokens and logo assets
-- `GET /assets/halocline-mark.png` and `/assets/halocline-wordmark.png` → cropped web logo derivatives
 - `GET /map` → MapLibre-based product surface
 - `GET /checkpoint` → internal model-inspection page
+- `GET /assets/...` → PNG assets from `public/assets/`
+
+API routes:
+
 - `GET|POST /api/map-scenario` → primary scenario endpoint (accepts `rechargeMultiplier`, `seaLevelRiseMeters`, `wellPumpingCubicMetersPerDayById`, `wellfieldPumpingCubicMetersPerDayById`, `canalStageMetersById`, `modelTuning`)
 - `GET /api/map-shell` → static shell geometry
 - `GET|POST /api/scenario` and `/api/checkpoint` → checkpoint JSON (the two paths are aliases)
@@ -82,7 +95,7 @@ The browser uses MapLibre GL JS via CDN with an OpenFreeMap basemap; the SVG gri
 
 ### Vercel deployment adapter
 
-The Stage 1 app remains a raw Node 24 server for local development, but Vercel boots it through `product/halocline-stage1/api/index.ts`. That function imports `handleCheckpointRequest` from `app/checkpointServer.ts`; `vercel.json` rewrites all incoming paths to `/api` so `/`, `/map`, `/checkpoint`, asset routes, and API routes continue to be handled by the same route switch. Keep the Vercel project root set to `product/halocline-stage1`.
+Keep the Vercel project root set to `product/halocline-stage1`. Vercel runs `npm run build`, serves `dist/` as the static frontend, and boots the concrete `product/halocline-stage1/api/*.ts` functions only for `/api/*` requests. Do not rewrite all paths to a function or the static Vite pages will be bypassed.
 
 ### Sprint-driven feature accretion
 

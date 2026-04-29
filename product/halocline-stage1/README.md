@@ -27,9 +27,9 @@ Run Sprint 1 validation:
 npm test
 ```
 
-## Stage 1 Checkpoint
+## Stage 1 Frontend
 
-The local checkpoint is a stable internal model-inspection surface for future sprints:
+The local product frontend is served by Vite. `npm run dev` first regenerates static HTML under the ignored `web/` directory, then starts Vite with local `/api/*` middleware:
 
 ```bash
 npm run dev
@@ -41,7 +41,7 @@ Then open:
 http://127.0.0.1:3000
 ```
 
-The root route serves the branded Halocline website draft. The map-facing product surface remains available at:
+Vite may select another port if 3000 is occupied. The root route serves the branded Halocline website draft. The map-facing product surface remains available at:
 
 ```text
 http://127.0.0.1:3000/map
@@ -53,15 +53,28 @@ The internal checkpoint/debug page is available at:
 http://127.0.0.1:3000/checkpoint
 ```
 
+Build and deployment validation:
+
+```bash
+npm run build
+npm run typecheck
+npm test
+```
+
+The Vercel project root should be `product/halocline-stage1`. Vercel runs the Vite build, serves `dist/`, and invokes the concrete `api/*.ts` functions only for `/api/*`.
+
 ## Branded Website Draft
 
 The root route (`/`) is a brand-facing website draft built from `../BRANDING.md` and the supplied logo assets. It uses the Halocline palette (`ink`, `bone`, `steel`, `chloride`), Inter and IBM Plex Mono, flat cross-section motifs, and trust copy that preserves the Stage 1 non-regulatory disclaimer.
 
-The web-sized logo derivatives live under `app/assets/` and are served by the local Node server:
+The web-sized logo derivatives and generated research images live under `public/assets/` for Vite/Vercel static delivery:
 
 ```text
 GET /assets/halocline-mark.png
 GET /assets/halocline-wordmark.png
+GET /assets/boundary_model.png
+GET /assets/scenario_surface.png
+GET /assets/ufno_heatmap.png
 ```
 
 The website links through to `/map` for the live scenario surface and `/checkpoint` for backend-style model inspection.

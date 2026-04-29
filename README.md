@@ -10,10 +10,11 @@ The repo is split by intent:
 ```bash
 cd product/halocline-stage1
 npm run dev
+npm run build
 npm test
 ```
 
-`product/halocline-stage1` is the current Stage 1 browser-first decision-support product. `product/halocline-app` is the static Vercel surrogate demo frontend. Brand source docs and logo originals live in `product/BRANDING.md` and `product/Logo Assets/`.
+`product/halocline-stage1` is the current Stage 1 browser-first decision-support product. It uses Vite for the static frontend and Vercel functions for `/api/*` model endpoints. `product/halocline-app` is the separate static Vercel surrogate demo frontend. Brand source docs and logo originals live in `product/BRANDING.md` and `product/Logo Assets/`.
 
 ## Research
 

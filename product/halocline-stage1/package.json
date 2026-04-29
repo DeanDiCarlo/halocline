@@ -4,13 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node app/checkpointServer.ts",
-    "demo": "node app/checkpointServer.ts",
-    "test": "node --test tests/**/*.test.ts"
+    "predev": "node scripts/generateStaticPages.ts",
+    "dev": "vite --host 127.0.0.1",
+    "prebuild": "node scripts/generateStaticPages.ts",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "server:dev": "node app/checkpointServer.ts",
+    "demo": "npm run dev",
+    "test": "node --test tests/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2"
   },
   "engines": {
     "node": ">=24"

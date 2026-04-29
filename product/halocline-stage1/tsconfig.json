@@ -8,5 +8,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["api/**/*.ts", "app/**/*.ts", "src/**/*.ts", "tests/**/*.ts"]
+  "include": ["api/**/*.ts", "app/**/*.ts", "scripts/**/*.ts", "src/**/*.ts", "tests/**/*.ts", "vite.config.ts"]
 }
