@@ -80,6 +80,10 @@ A single-file `node:http` server (~6 KLOC, mostly inlined HTML/CSS/JS for the br
 
 The browser uses MapLibre GL JS via CDN with an OpenFreeMap basemap; the SVG grid view remains as a fallback when external tiles are unavailable.
 
+### Vercel deployment adapter
+
+The Stage 1 app remains a raw Node 24 server for local development, but Vercel boots it through `product/halocline-stage1/api/index.ts`. That function imports `handleCheckpointRequest` from `app/checkpointServer.ts`; `vercel.json` rewrites all incoming paths to `/api` so `/`, `/map`, `/checkpoint`, asset routes, and API routes continue to be handled by the same route switch. Keep the Vercel project root set to `product/halocline-stage1`.
+
 ### Sprint-driven feature accretion
 
 The `product/halocline-stage1/README.md` is organized as a sprint log (Sprint 1 through Sprint 10D). It is the authoritative record of what each piece of the API, view-model, and UI is for, and what is intentionally out-of-scope at each stage. **Read the relevant sprint sections before extending a feature** — many response fields exist to satisfy a specific sprint's stakeholder-facing requirement, and the README states what each sprint did *not* add.

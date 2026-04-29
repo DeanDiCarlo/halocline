@@ -1,5 +1,6 @@
-import { createServer } from "node:http";
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { readFile } from "node:fs/promises";
+import { pathToFileURL } from "node:url";
 
 import {
   runCheckpointScenario,
@@ -4880,7 +4881,7 @@ const mapShellHtml = String.raw`<!doctype html>
   </body>
 </html>`;
 
-const server = createServer(async (request, response) => {
+export async function handleCheckpointRequest(request: IncomingMessage, response: ServerResponse): Promise<void> {
   const url = new URL(request.url ?? "/", `http://${request.headers.host ?? "localhost"}`);
 
   try {
@@ -4946,17 +4947,27 @@ const server = createServer(async (request, response) => {
       error: error instanceof Error ? error.message : "Unknown server error",
     });
   }
-});
+}
 
-server.on("error", (error) => {
-  console.error(`Unable to start Halocline Stage 1 checkpoint on http://${host}:${port}.`);
-  if ("code" in error && error.code === "EADDRINUSE") {
-    console.error(`Port ${port} is already in use. Stop the existing dev server and run npm run dev again.`);
-  }
-  console.error(error);
-  process.exitCode = 1;
-});
+export function createCheckpointServer() {
+  return createServer(handleCheckpointRequest);
+}
 
-server.listen(port, host, () => {
-  console.log(`Halocline Stage 1 checkpoint running at http://${host}:${port}`);
-});
+const isDirectRun = process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (isDirectRun) {
+  const server = createCheckpointServer();
+
+  server.on("error", (error) => {
+    console.error(`Unable to start Halocline Stage 1 checkpoint on http://${host}:${port}.`);
+    if ("code" in error && error.code === "EADDRINUSE") {
+      console.error(`Port ${port} is already in use. Stop the existing dev server and run npm run dev again.`);
+    }
+    console.error(error);
+    process.exitCode = 1;
+  });
+
+  server.listen(port, host, () => {
+    console.log(`Halocline Stage 1 checkpoint running at http://${host}:${port}`);
+  });
+}
