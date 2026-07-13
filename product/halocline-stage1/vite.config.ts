@@ -25,6 +25,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "web/index.html",
+        research: "web/research/index.html",
         map: "web/map/index.html",
         checkpoint: "web/checkpoint/index.html",
       },

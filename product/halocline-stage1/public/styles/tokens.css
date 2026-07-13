@@ -1,0 +1,24 @@
+:root {
+  color-scheme: light;
+  --hal-ink: #0b1e2f;
+  --hal-ink-700: #1e3448;
+  --hal-bone: #e8e1d1;
+  --hal-bone-50: #f3eee0;
+  --hal-bone-200: #d4cbb5;
+  --hal-steel: #445e72;
+  --hal-steel-200: #a9b8c4;
+  --hal-chloride: #c47838;
+  --hal-chloride-600: #9e5e26;
+  --hal-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --hal-font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --line: rgb(11 30 47 / 16%);
+  --line-strong: rgb(11 30 47 / 32%);
+  --line-on-ink: rgb(232 225 209 / 22%);
+  --muted: rgb(11 30 47 / 72%);
+  --muted-on-ink: rgb(232 225 209 / 76%);
+  --radius: 6px;
+  --page-pad: clamp(1rem, 4vw, 3.5rem);
+  --section-space: clamp(3.5rem, 8vw, 7rem);
+  --content-width: 72rem;
+  --copy-width: 42rem;
+}
