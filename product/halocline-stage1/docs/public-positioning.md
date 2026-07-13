@@ -21,7 +21,7 @@ Stage 1 is provisional and non-regulatory. It is not a calibrated model, a model
 
 The following statement is approved when its qualifications remain adjacent:
 
-> A U-FNO surrogate achieved 1.78 m head MAE and 8.02 m interface-depth MAE against the synthetic Stage 1 Python oracle on held-out samples, with a 174.57x batched speedup over that oracle at batch size 2,048.
+> Using a 4,000 / 500 / 500 train-validation-test split, a U-FNO surrogate achieved 1.78 m head MAE and 8.02 m interface-depth MAE against the simplified synthetic Stage 1 Python physics oracle on held-out samples, with a 174.57x batched speedup over that oracle on held-out data at batch size 2,048.
 
 Always pair that statement with:
 

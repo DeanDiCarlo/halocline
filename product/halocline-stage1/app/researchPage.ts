@@ -24,7 +24,7 @@ export const researchHtml = String.raw`<!doctype html>
       <nav class="site-nav" aria-label="Primary navigation">
         <div class="nav-inner">
           <a class="nav-brand" href="/" aria-label="Halocline home"><img src="/assets/halocline-wordmark.png" alt="Halocline" width="1600" height="389" /></a>
-          <div class="nav-links"><a href="/">Home</a><a href="/map">Open map</a><a href="/checkpoint">Checkpoint</a></div>
+          <div class="nav-links"><a href="/">Home</a><a href="/map/">Open map</a><a href="/checkpoint/">Checkpoint</a></div>
         </div>
       </nav>
       <main class="research-page">
@@ -36,7 +36,7 @@ export const researchHtml = String.raw`<!doctype html>
         <section aria-labelledby="lineage-title">
           <p class="eyebrow">Working precedent</p>
           <h2 id="lineage-title">GeoFUSE, U-FNO, WNO, and graph-network directions</h2>
-          <p class="section-copy">GeoFUSE pairs PFLOTRAN-generated seawater-intrusion simulations with U-FNO inference, PCA parameterization, and ESMDA data assimilation. Halocline uses that result as a research baseline while testing whether WNO and GNN methods can better preserve spatial heterogeneity.</p>
+          <p class="section-copy">GeoFUSE pairs PFLOTRAN-generated seawater-intrusion simulations with U-FNO inference, PCA parameterization, and ESMDA data assimilation. Halocline uses that result as research precedent. Exploring whether WNO and GNN methods can better preserve spatial heterogeneity is a future research direction, not a demonstrated Halocline result.</p>
         </section>
         <section aria-labelledby="reference-title">
           <p class="eyebrow">Bibliography</p>

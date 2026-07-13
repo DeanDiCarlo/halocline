@@ -20,6 +20,7 @@ type MarketingContent = {
     title: string;
     descriptor: string;
     summary: string;
+    evidenceCue: string;
     disclaimer: string;
   };
   stakes: {
@@ -62,6 +63,8 @@ export const marketingContent = {
     descriptor: "Halocline is a digital-twin research platform for transparent coastal-aquifer scenario screening.",
     summary:
       "Stage 1 makes the relationships among recharge, sea level, canals, pumping, freshwater head, and interface depth inspectable in one map-native planning surface.",
+    evidenceCue:
+      "Held-out simplified synthetic Python Stage 1 oracle evidence: 4,000 / 500 / 500 train-validation-test split; 1.78 m head MAE; 8.02 m interface-depth MAE; up to 174.57x batched speedup at batch size 2,048.",
     disclaimer:
       "Stage 1 is provisional and non-regulatory. It is a simplified research and planning instrument, not a calibrated model or a substitute for site-specific engineering analysis.",
   },
@@ -130,6 +133,11 @@ export const marketingContent = {
         "A U-FNO surrogate was trained and evaluated against the synthetic Stage 1 Python physics oracle. These are held-out oracle results, not measurements against field observations.",
       metrics: [
         {
+          label: "Train / validation / test",
+          value: "4,000 / 500 / 500",
+          detail: "synthetic Stage 1 Python oracle scenarios",
+        },
+        {
           label: "Head MAE",
           value: "1.78 m",
           detail: "against the synthetic Stage 1 Python oracle on held-out samples",
@@ -140,9 +148,9 @@ export const marketingContent = {
           detail: "against the synthetic Stage 1 Python oracle on held-out samples",
         },
         {
-          label: "Batched speedup",
+          label: "Up to batched speedup",
           value: "174.57x",
-          detail: "over the synthetic Stage 1 Python oracle at batch size 2,048",
+          detail: "over the synthetic Stage 1 Python oracle on held-out data at batch size 2,048",
         },
       ],
       caveat:

@@ -34,7 +34,7 @@ export const marketingHtml = String.raw`<!doctype html>
       <nav class="site-nav" aria-label="Primary navigation">
         <div class="nav-inner">
           <a class="nav-brand" href="/" aria-label="Halocline home"><img src="/assets/halocline-wordmark.png" alt="Halocline" width="1600" height="389" /></a>
-          <div class="nav-links"><a href="/research">Research</a><a class="nav-action" href="/map">Open map</a></div>
+          <div class="nav-links"><a href="/research/">Research</a><a class="nav-action" href="/map/">Open map</a></div>
         </div>
       </nav>
       <main>
@@ -46,8 +46,9 @@ export const marketingHtml = String.raw`<!doctype html>
               <h1 id="hero-title">${marketingContent.hero.title}</h1>
               <p class="hero-descriptor">${marketingContent.hero.descriptor}</p>
               <p class="lede">${marketingContent.hero.summary}</p>
+              <p class="hero-evidence">${marketingContent.hero.evidenceCue}</p>
               <p class="hero-notice">${marketingContent.hero.disclaimer}</p>
-              <div class="button-row"><a class="button button-primary" href="/map">Open the scenario map</a><a class="button button-secondary" href="/research">Explore the research</a></div>
+              <div class="button-row"><a class="button button-primary" href="/map/">Open the scenario map</a><a class="button button-secondary" href="/research/">Explore the research</a></div>
             </div>
             <figure class="scientific-figure hero-figure">
               <img src="/assets/boundary_model.png" alt="Conceptual coastal-aquifer cross-section showing recharge, hydraulic head contours, interface depth, pumping wells, and the sea boundary." width="1448" height="1086" />
@@ -84,7 +85,7 @@ export const marketingHtml = String.raw`<!doctype html>
                 <figure class="scientific-figure evidence-figure"><img src="/assets/ufno_heatmap.png" alt="U-FNO held-out comparison heatmap showing synthetic physics oracle, surrogate prediction, and absolute error." width="1448" height="1086" /><figcaption>U-FNO prediction and error against the synthetic Stage 1 Python oracle on the held-out test set.</figcaption></figure>
               </div>
               <p class="evidence-caveat">${marketingContent.validation.evidence.caveat}</p>
-              <p class="technical-link">For internal, technical inspection of the current Stage 1 calculations, visit the <a href="/checkpoint">checkpoint</a>.</p>
+              <p class="technical-link">For internal, technical inspection of the current Stage 1 calculations, visit the <a href="/checkpoint/">checkpoint</a>.</p>
             </div>
           </div>
         </section>
@@ -99,11 +100,11 @@ export const marketingHtml = String.raw`<!doctype html>
         <section class="section section-ink final-cta" aria-labelledby="demo-title">
           <div class="section-inner final-cta-inner">
             <div><p class="eyebrow">Stage 1</p><h2 id="demo-title">${marketingContent.finalCta.title}</h2><p>${marketingContent.finalCta.body}</p></div>
-            <div class="button-row"><a class="button button-primary" href="/map">Open the scenario map</a><a class="button button-secondary" href="/research">Read the research</a></div>
+            <div class="button-row"><a class="button button-primary" href="/map/">Open the scenario map</a><a class="button button-secondary" href="/research/">Read the research</a></div>
           </div>
         </section>
       </main>
-      <footer class="footer"><div class="footer-inner"><span class="footer-brand"><img src="/assets/halocline-mark.png" alt="" width="768" height="804" aria-hidden="true" />Halocline</span><span>Scenario-driven coastal-aquifer planning. Stage 1 is provisional and non-regulatory.</span><a class="footer-inspection-link" href="/checkpoint">Technical inspection</a></div></footer>
+      <footer class="footer"><div class="footer-inner"><span class="footer-brand"><img src="/assets/halocline-mark.png" alt="" width="768" height="804" aria-hidden="true" />Halocline</span><span>Scenario-driven coastal-aquifer planning. Stage 1 is provisional and non-regulatory.</span><a class="footer-inspection-link" href="/checkpoint/">Technical inspection</a></div></footer>
     </div>
   </body>
 </html>`;
