@@ -4,79 +4,178 @@ export type MarketingCard = {
   detail?: string;
 };
 
+export type MarketingMetric = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
 export type ResearchReference = {
   citation: string;
 };
 
+type MarketingContent = {
+  hero: {
+    eyebrow: string;
+    title: string;
+    descriptor: string;
+    summary: string;
+    disclaimer: string;
+  };
+  stakes: {
+    title: string;
+    body: string;
+    cards: readonly MarketingCard[];
+  };
+  experience: {
+    title: string;
+    body: string;
+    trustItems: readonly MarketingCard[];
+  };
+  validation: {
+    title: string;
+    body: string;
+    steps: readonly MarketingCard[];
+    evidence: {
+      title: string;
+      body: string;
+      metrics: readonly MarketingMetric[];
+      caveat: string;
+    };
+  };
+  execution: {
+    title: string;
+    body: string;
+    cards: readonly MarketingCard[];
+  };
+  finalCta: {
+    title: string;
+    body: string;
+  };
+  references: readonly ResearchReference[];
+};
+
 export const marketingContent = {
   hero: {
-    eyebrow: "Halocline | coastal aquifer research",
-    title: "Coastal aquifer decisions under saltwater pressure",
+    eyebrow: "Coastal-aquifer planning instrument in development",
+    title: "Know what’s under the surface. Decide with confidence.",
+    descriptor: "Halocline is a digital-twin research platform for transparent coastal-aquifer scenario screening.",
     summary:
-      "Saltwater intrusion can threaten freshwater supply wells and the coastal aquifers that support them. Repeating scenario analysis across recharge, sea level, canals, and pumping is difficult with high-fidelity groundwater workflows. Halocline is researching a faster, inspectable way to screen those scenarios.",
+      "Stage 1 makes the relationships among recharge, sea level, canals, pumping, freshwater head, and interface depth inspectable in one map-native planning surface.",
     disclaimer:
-      "Current work is synthetic and provisional. Stage 1 is not a calibrated regulatory model or a substitute for site-specific engineering analysis.",
+      "Stage 1 is provisional and non-regulatory. It is a simplified research and planning instrument, not a calibrated model or a substitute for site-specific engineering analysis.",
   },
-  decisionCards: [
-    {
-      title: "Freshwater at risk",
-      body: "Coastal pumping, reduced recharge, and elevated coastal boundaries can change freshwater head and move the freshwater-saltwater interface toward supply wells.",
-    },
-    {
-      title: "Repeated analysis is expensive",
-      body: "Calibration, uncertainty analysis, and operational scenario sweeps require many forward runs in groundwater simulators that represent the subsurface in more detail.",
-    },
-    {
-      title: "A decision-support gap",
-      body: "Teams need a transparent way to identify which scenarios deserve expensive simulator time while keeping assumptions and limits visible.",
-    },
-  ] satisfies readonly MarketingCard[],
-  approach: [
-    {
-      title: "Set boundary conditions",
-      body: "Express recharge, sea level, canal stages, and pumping as a scenario.",
-      detail: "inputs",
-    },
-    {
-      title: "Solve the Stage 1 chain",
-      body: "Run steady-state Darcy head, a Ghyben-Herzberg interface estimate, and well-level upconing risk.",
-      detail: "inspectable physics",
-    },
-    {
-      title: "Screen with a surrogate",
-      body: "Test whether a learned approximation can narrow candidate scenarios before high-fidelity calibration runs.",
-      detail: "research direction",
-    },
-  ] satisfies readonly MarketingCard[],
-  evidence: {
-    title: "Current experimental evidence",
+  stakes: {
+    title: "A planning gap opens before the boundary becomes visible",
     body:
-      "The current U-FNO experiment was trained against a simplified synthetic physics oracle. It is a compute and workflow test, not a MODFLOW, SEAWAT, or field-validated aquifer model.",
-    metrics: [
-      { label: "Training split", value: "4k / 500 / 500", detail: "synthetic oracle train, validation, held-out test" },
-      { label: "Head error", value: "1.78 m MAE", detail: "held-out synthetic test set" },
-      { label: "Interface error", value: "8.02 m MAE", detail: "held-out synthetic test set" },
-      { label: "Batch inference", value: "174.57x", detail: "versus the Python oracle" },
-    ],
-  },
-  commitment: {
-    title: "Research commitment and working-paper direction",
-    body:
-      "Halocline is testing whether surrogate architectures can preserve the spatial structure needed to select better MODFLOW, SEAWAT, or PFLOTRAN calibration runs. The aim is to prioritize expensive simulations, not replace validation or site calibration.",
+      "Coastal aquifer choices are made across changing conditions, not a single forecast. The practical challenge is seeing which combinations deserve deeper investigation while keeping the assumptions in view.",
     cards: [
       {
-        title: "Research lineage",
-        body: "GeoFUSE provides the working precedent for surrogate-based seawater-intrusion analysis using PFLOTRAN-generated simulations, U-FNO inference, PCA parameterization, and ESMDA data assimilation.",
+        title: "Freshwater conditions can shift",
+        body: "Pumping, recharge, coastal boundaries, and canal stages can change freshwater head and the estimated position of a freshwater-saltwater interface.",
       },
       {
-        title: "Working-paper question",
-        body: "Can WNO and graph-network methods better preserve localized salinity fronts, irregular geometry, wells, canals, boundaries, and geologic heterogeneity?",
+        title: "The scenario space is large",
+        body: "Testing many plausible combinations is difficult when each detailed groundwater workflow requires careful setup, calibration, and review.",
       },
       {
-        title: "Practical target",
-        body: "Use surrogate sweeps to narrow many candidates to the smaller set that deserves full simulator time and explicit uncertainty analysis.",
+        title: "Early choices need a clear screen",
+        body: "Teams need a way to compare assumptions and spatial consequences before committing scarce high-fidelity simulation and engineering effort.",
       },
-    ] satisfies readonly MarketingCard[],
+    ],
+  },
+  experience: {
+    title: "A scenario surface built for inspection",
+    body:
+      "Halocline connects editable planning inputs to spatial outputs and well-level signals. The purpose is not to hide uncertainty behind a score; it is to make a simplified Stage 1 chain legible enough to question, compare, and improve.",
+    trustItems: [
+      {
+        title: "Visible inputs",
+        body: "Recharge, sea level, canal stages, and pumping remain explicit scenario choices.",
+      },
+      {
+        title: "Traceable outputs",
+        body: "Head, interface-depth, risk, diagnostics, and warnings are shown together in the map experience.",
+      },
+      {
+        title: "Clear limits",
+        body: "Provisional assumptions and non-regulatory status travel with the result rather than appearing after it.",
+      },
+    ],
+  },
+  validation: {
+    title: "Validation starts with an inspectable physics path",
+    body:
+      "Stage 1 keeps its simplified calculation sequence explicit. In parallel, the research workflow tests whether a learned surrogate can accelerate screening against that same synthetic reference—not stand in for field validation.",
+    steps: [
+      {
+        title: "Solve freshwater head",
+        body: "A steady-state Darcy solve estimates head across the active grid from the scenario boundary conditions.",
+        detail: "Stage 1 physics",
+      },
+      {
+        title: "Estimate interface depth",
+        body: "A Ghyben-Herzberg sharp-interface estimate translates head into a provisional interface-depth field with display guardrails.",
+        detail: "simplified interface",
+      },
+      {
+        title: "Screen well-level risk",
+        body: "A simplified upconing calculation identifies where a scenario warrants closer, higher-fidelity review.",
+        detail: "planning signal",
+      },
+    ],
+    evidence: {
+      title: "Current surrogate research evidence",
+      body:
+        "A U-FNO surrogate was trained and evaluated against the synthetic Stage 1 Python physics oracle. These are held-out oracle results, not measurements against field observations.",
+      metrics: [
+        {
+          label: "Head MAE",
+          value: "1.78 m",
+          detail: "against the synthetic Stage 1 Python oracle on held-out samples",
+        },
+        {
+          label: "Interface-depth MAE",
+          value: "8.02 m",
+          detail: "against the synthetic Stage 1 Python oracle on held-out samples",
+        },
+        {
+          label: "Batched speedup",
+          value: "174.57x",
+          detail: "over the synthetic Stage 1 Python oracle at batch size 2,048",
+        },
+      ],
+      caveat:
+        "The oracle is a simplified 2D steady sharp-interface model. This is not field validation or calibrated MODFLOW, SEAWAT, or PFLOTRAN performance.",
+    },
+  },
+  execution: {
+    title: "Proof of execution, grounded in working artifacts",
+    body:
+      "The research platform is more than a product concept: its current workflow spans a parity-tested physics oracle, generated scenarios, trained surrogate evaluation, and a map-native Stage 1 frontend.",
+    cards: [
+      {
+        title: "Python physics oracle",
+        body: "A Python port of the Stage 1 chain provides sparse Darcy head, sharp-interface depth, and simplified upconing outputs against frozen reference snapshots.",
+      },
+      {
+        title: "Synthetic scenario generation",
+        body: "Deterministic scenario sampling and oracle generation create the research data used to train and assess the surrogate workflow.",
+      },
+      {
+        title: "Trained U-FNO evaluation",
+        body: "A trained U-FNO is evaluated on held-out oracle scenarios and benchmarked against the Python physics oracle.",
+      },
+      {
+        title: "Map-native frontend",
+        body: "The Stage 1 interface connects scenario controls, spatial outputs, diagnostics, warnings, and well evidence in a browser-first planning surface.",
+      },
+    ],
+  },
+  finalCta: {
+    title: "Explore the planning instrument in development",
+    body:
+      "Open the Stage 1 scenario map to inspect the current planning surface, or read the research lineage and supporting references behind the work.",
   },
   references: [
     "Werner et al. 2013 seawater intrusion review",
@@ -116,5 +215,5 @@ export const marketingContent = {
     "Dwivedi et al. 2018 riparian hot moments",
     "Zhong et al. 2019 cDC-GAN plume prediction",
     "Kingma and Ba 2014 Adam optimizer",
-  ].map((citation) => ({ citation })) satisfies readonly ResearchReference[],
-} as const;
+  ].map((citation) => ({ citation })),
+} as const satisfies MarketingContent;
