@@ -305,15 +305,19 @@ export const checkpointHtml = String.raw`<!doctype html>
 
       .grid-wrap {
         padding: 18px;
+        min-width: 0;
         min-height: 0;
         display: grid;
-        place-items: center;
+        overflow: auto;
       }
 
       .aquifer-grid {
         display: grid;
         gap: 4px;
-        width: min(100%, 820px);
+        width: 100%;
+        max-width: 820px;
+        min-width: min-content;
+        margin: auto;
       }
 
       .cell {
@@ -4933,11 +4937,11 @@ export async function handleCheckpointFetch(request: Request): Promise<Response>
       return htmlResponse(marketingHtml);
     }
 
-    if (request.method === "GET" && url.pathname === "/checkpoint") {
+    if (request.method === "GET" && (url.pathname === "/checkpoint" || url.pathname === "/checkpoint/")) {
       return htmlResponse(checkpointHtml);
     }
 
-    if (request.method === "GET" && url.pathname === "/map") {
+    if (request.method === "GET" && (url.pathname === "/map" || url.pathname === "/map/")) {
       return htmlResponse(mapShellHtml);
     }
 

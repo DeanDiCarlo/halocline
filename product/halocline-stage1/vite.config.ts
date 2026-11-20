@@ -1,5 +1,15 @@
 import { defineConfig } from "vite";
+import type { Connect } from "vite";
 import { handleCheckpointRequest } from "./app/checkpointServer.ts";
+import { resolveStaticPageRewrite } from "./app/staticPageRoutes.ts";
+
+const rewriteStaticPageRoutes: Connect.NextHandleFunction = (request, _response, next) => {
+  const rewrittenUrl = resolveStaticPageRewrite(request.url);
+  if (rewrittenUrl) {
+    request.url = rewrittenUrl;
+  }
+  next();
+};
 
 export default defineConfig({
   root: "web",
@@ -8,6 +18,7 @@ export default defineConfig({
     {
       name: "halocline-api-dev-middleware",
       configureServer(server) {
+        server.middlewares.use(rewriteStaticPageRoutes);
         server.middlewares.use((request, response, next) => {
           if (!request.url?.startsWith("/api")) {
             next();
@@ -16,6 +27,9 @@ export default defineConfig({
 
           handleCheckpointRequest(request, response).catch(next);
         });
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use(rewriteStaticPageRoutes);
       },
     },
   ],
