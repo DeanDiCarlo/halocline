@@ -1,6 +1,6 @@
 import type { Grid, GridCell } from "./types.ts";
 
-export type CreateGridParams = {
+type CreateGridParams = {
   id: string;
   name: string;
   rowCount: number;

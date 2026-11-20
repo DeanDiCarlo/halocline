@@ -36,7 +36,7 @@ function createMockCells(): GridCell[] {
   });
 }
 
-export const mockDomain: Domain = {
+const mockDomain: Domain = {
   id: "mock-biscayne-domain",
   name: "Mock Biscayne Training Domain",
   boundingBox: {
@@ -49,7 +49,7 @@ export const mockDomain: Domain = {
   inlandBoundaryCellIds: Array.from({ length: rowCount }, (_, row) => cellId(row, 0)),
 };
 
-export const mockGrid: Grid = {
+const mockGrid: Grid = {
   id: "mock-grid-5x7",
   name: "Mock 5 x 7 finite-difference grid",
   rowCount,
@@ -60,7 +60,7 @@ export const mockGrid: Grid = {
   cells: createMockCells(),
 };
 
-export const mockWells: Well[] = [
+const mockWells: Well[] = [
   {
     id: "well-a1",
     name: "Well A1",
@@ -93,7 +93,7 @@ export const mockWells: Well[] = [
   },
 ];
 
-export const mockCanals: Canal[] = [
+const mockCanals: Canal[] = [
   {
     id: "canal-primary",
     name: "Mock Inland Canal",

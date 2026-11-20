@@ -1,6 +1,6 @@
 import type { RiskLevel } from "./types.ts";
 
-export type ComputeUpconingRiskParams = {
+type ComputeUpconingRiskParams = {
   pumpingCubicMetersPerDay: number;
   localHydraulicConductivityMetersPerDay: number;
   wellScreenBottomDepthMeters: number;

@@ -2,7 +2,7 @@ import { mockStage1Dataset } from "../src/lib/data/mockDataset.ts";
 import { baselineScenario } from "../src/lib/model/baselineScenario.ts";
 import type { Stage1Dataset } from "../src/lib/model/types.ts";
 
-export type MockStage1ViewModel = {
+type MockStage1ViewModel = {
   domainName: string;
   gridLabel: string;
   wellCount: number;
