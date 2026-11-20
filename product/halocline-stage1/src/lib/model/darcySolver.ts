@@ -241,18 +241,15 @@ export function solveDarcyHead(grid: Grid, config: DarcySolverConfig = {}): Darc
       let conductanceWeightedNeighborHeadSum = 0;
 
       for (const neighbor of neighbors) {
-        const neighborCell = getCellAt(gridIndex, neighbor.row, neighbor.col);
-        if (!neighborCell) continue;
-
         const conductance = calculateConductanceBetweenCells({
           cellA: cell,
-          cellB: neighborCell,
+          cellB: neighbor,
           cellSizeMeters: solvedGrid.cellSizeMeters,
           effectiveAquiferThicknessMeters: solverConfig.effectiveAquiferThicknessMeters,
         });
 
         conductanceSum += conductance;
-        conductanceWeightedNeighborHeadSum += conductance * (neighborCell.headMeters ?? initialHeadMeters);
+        conductanceWeightedNeighborHeadSum += conductance * (neighbor.headMeters ?? initialHeadMeters);
       }
 
       if (conductanceSum === 0) {
