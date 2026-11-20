@@ -1306,7 +1306,6 @@ function resolveMapScenarioInput(
   input: MapScenarioInput,
   dataset: Stage1Dataset,
 ): ResolvedMapScenarioInput {
-  const wellPumpingCubicMetersPerDayById: Record<string, number> = {};
   const wellfieldPumpingCubicMetersPerDayById = {
     ...(input.wellfieldPumpingCubicMetersPerDayById ?? {}),
   };
