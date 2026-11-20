@@ -3,10 +3,7 @@ import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import type { IncomingHttpHeaders } from "node:http";
 
-import {
-  buildMapShellViewModel,
-  mapPointsToSvgPoints,
-} from "../src/lib/map/mapShellViewModel.ts";
+import { mapPointsToSvgPoints } from "../src/lib/map/mapShellViewModel.ts";
 import { buildMapScenarioViewModel } from "../src/lib/map/mapScenarioViewModel.ts";
 import { handleApiFetch } from "./apiRoutes.ts";
 import { marketingHtml } from "./marketingPage.ts";
@@ -816,7 +813,6 @@ export const checkpointHtml = String.raw`<!doctype html>
   </body>
 </html>`;
 
-const mapShellViewModel = buildMapShellViewModel();
 const mapScenarioViewModel = buildMapScenarioViewModel();
 const serializedMapScenarioViewModel = JSON.stringify(mapScenarioViewModel);
 
